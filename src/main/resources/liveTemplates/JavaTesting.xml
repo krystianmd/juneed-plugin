@@ -1,5 +1,5 @@
 <templateSet group="Java Testing">
-  <template name="jnt" value="@org.junit.jupiter.api.DisplayName(&quot;Test $DISPLAY_NAME_CLASS$&quot;)&#10;@org.junit.jupiter.api.Nested&#10;class $NAME$ {&#10;    &#10;    @org.junit.jupiter.api.DisplayName(&quot;Verify $DISPLAY_NAME_METHOD$&quot;)&#10;    void should$SHOULD$When$WHEN$() {&#10;        // given&#10;        $END$&#10;        // when&#10;        &#10;        // then&#10;        &#10;    } &#10;}&#10;" description="Declare Junit nested java test" toReformat="true" toShortenFQNames="true">
+  <template name="jnt" value="@org.junit.jupiter.api.DisplayName(&quot;Test $DISPLAY_NAME_CLASS$&quot;)&#10;@org.junit.jupiter.api.Nested&#10;class $NAME$ {&#10;    &#10;    @org.junit.jupiter.api.DisplayName(&quot;Verify $DISPLAY_NAME_METHOD$&quot;)&#10;    void should$SHOULD$When$WHEN$() {&#10;        // given&#10;        $END$&#10;        // when&#10;        &#10;        // then&#10;        &#10;    } &#10;}" description="Declare Junit nested java test" toReformat="true" toShortenFQNames="true">
     <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="DISPLAY_NAME_CLASS" expression="capitalize(spaceSeparated(NAME))" defaultValue="" alwaysStopAt="false" />
     <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
