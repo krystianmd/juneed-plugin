@@ -2,8 +2,9 @@ package com.madrakrystian.juneed.template.live;
 
 import com.intellij.codeInsight.template.TemplateActionContext;
 import com.intellij.codeInsight.template.TemplateContextType;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtil;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ProjectRootManager;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,21 +19,19 @@ public class JavaTestingContext extends TemplateContextType {
 
     @Override
     public boolean isInContext(@NotNull TemplateActionContext templateActionContext) {
-        final PsiFile contextFile = templateActionContext.getFile();
+        final PsiFile contextFile = templateActionContext.getFile().getOriginalFile();
 
-        return isAJavaTest(contextFile) && isWithinTestModule(contextFile.getOriginalFile());
+        return isJavaTest(contextFile)
+                && isInTestSourceContent(contextFile.getProject(), contextFile.getVirtualFile());
     }
 
-    private boolean isAJavaTest(PsiFile contextFile) {
-        return contextFile.getName().endsWith("Test.java");
+    private boolean isJavaTest(@NotNull PsiFile contextFile) {
+        final String name = contextFile.getName();
+        return name.endsWith("Test.java") || name.endsWith("IT.java");
     }
 
-    private boolean isWithinTestModule(@NotNull PsiFile originalFile) {
-        final Module module = ModuleUtil.findModuleForFile(originalFile);
-
-        if (module != null) {
-            return module.getName().endsWith("test");
-        }
-        return false;
+    private boolean isInTestSourceContent(@NotNull Project project, @NotNull VirtualFile file) {
+        return ProjectRootManager.getInstance(project).getFileIndex()
+                .isInTestSourceContent(file);
     }
 }
