@@ -8,12 +8,12 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
-public class JavaTestingContext extends TemplateContextType {
+public class JavaTestsContext extends TemplateContextType {
 
-    private static final String CONTEXT_ID = "JAVA_TESTING";
-    private static final String CONTEXT_PRESENTABLE_NAME = "Java testing";
+    private static final String CONTEXT_ID = "JAVA_TESTS";
+    private static final String CONTEXT_PRESENTABLE_NAME = "Java tests";
 
-    protected JavaTestingContext() {
+    protected JavaTestsContext() {
         super(CONTEXT_ID, CONTEXT_PRESENTABLE_NAME);
     }
 

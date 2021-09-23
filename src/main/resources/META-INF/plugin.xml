@@ -19,8 +19,11 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <!-- CONTEXT -->
+        <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestsContext"/>
+
+        <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/JavaTesting.xml"/>
-        <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestingContext"/>
     </extensions>
 
     <actions>

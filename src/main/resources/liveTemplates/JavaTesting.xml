@@ -6,7 +6,7 @@
     <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="DISPLAY_NAME_METHOD" expression="capitalize(spaceSeparated(WHEN))" defaultValue="" alwaysStopAt="false" />
     <context>
-      <option name="JAVA_TESTING" value="true" />
+      <option name="JAVA_TESTS" value="true" />
     </context>
   </template>
 </templateSet>
