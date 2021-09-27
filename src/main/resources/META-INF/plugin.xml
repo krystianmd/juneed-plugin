@@ -4,15 +4,7 @@
     <vendor email="madrakrystian@gmail.com" url="https://www.madrakrystian.com">Krystian Madra</vendor>
 
     <description><![CDATA[
-        Generates test classes based on pre-defined live test templates:</br>
-          <ul>
-            <li>Junit nested java class (type "jnt")</li>
-            <ul>
-                <li>@DisplayName annotations</li>
-                <li>A class with @Nested annotation</li>
-                <li>A method with prepared given/when/then comment convention</li>
-            </ul>
-          </ul>
+        Soon
         ]]>
     </description>
 
@@ -23,7 +15,7 @@
         <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestsContext"/>
 
         <!-- LIVE TEMPLATES -->
-        <defaultLiveTemplates file="/liveTemplates/JavaTesting.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/Assertions.xml"/>
     </extensions>
 
     <actions>
