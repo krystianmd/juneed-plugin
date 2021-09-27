@@ -8,11 +8,11 @@
         ]]>
     </description>
 
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- CONTEXT -->
-        <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestsContext"/>
+        <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestStatementContext"/>
 
         <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/Assertions.xml"/>
