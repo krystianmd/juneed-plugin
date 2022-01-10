@@ -15,7 +15,7 @@
         <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestStatementContext"/>
 
         <!-- LIVE TEMPLATES -->
-        <defaultLiveTemplates file="/liveTemplates/Assertions.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/JunitAssertions.xml"/>
     </extensions>
 
     <actions>

@@ -1,15 +1,15 @@
-<templateSet group="Assertions">
-  <template name="ase" value="org.junit.jupiter.api.Assertions.assertEquals($EXPECTED$, $ACTUAL$, &quot;$MSG$&quot;);$END$" description="assertEquals assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
+<templateSet group="JunitAssertions">
+  <template name="asa" value="org.junit.jupiter.api.Assertions.assertAll(&quot;$MSG$&quot;,&#10;        () -&gt; org.junit.jupiter.api.Assertions.assertEquals($EXPECTED$, $ACTUAL$)$END$&#10;    );" description="assertAll assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
+    <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="EXPECTED" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_TEST_STATEMENT" value="true" />
     </context>
   </template>
-  <template name="ast" value="org.junit.jupiter.api.Assertions.assertTrue($CONDITION$, () -&gt; &quot;$MSG$&quot;);$END$" description="assertTrue assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
-    <variable name="CONDITION" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true" />
+  <template name="ase" value="org.junit.jupiter.api.Assertions.assertEquals($EXPECTED$, $ACTUAL$);$END$" description="assertEquals assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
+    <variable name="EXPECTED" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_TEST_STATEMENT" value="true" />
     </context>
@@ -21,24 +21,18 @@
       <option name="JAVA_TEST_STATEMENT" value="true" />
     </context>
   </template>
-  <template name="asa" value="org.junit.jupiter.api.Assertions.assertAll(&quot;$MSG$&quot;,&#10;        () -&gt; org.junit.jupiter.api.Assertions.assertEquals($EX1$, $ACT1$),&#10;        () -&gt; org.junit.jupiter.api.Assertions.assertEquals($EX2$, $ACT2$)$END$&#10;    );" description="assertAll assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
-    <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="EX1" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="ACT1" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="EX2" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="ACT2" expression="" defaultValue="" alwaysStopAt="true" />
-    <context>
-      <option name="JAVA_TEST_STATEMENT" value="true" />
-    </context>
-  </template>
   <template name="asn" value="org.junit.jupiter.api.Assertions.assertNull($OBJ$);$END$" description="assertNull assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
     <variable name="OBJ" expression="" defaultValue="" alwaysStopAt="true" />
-    <context>
-      <option name="JAVA_TEST_STATEMENT" value="true" />
-    </context>
   </template>
   <template name="asnn" value="org.junit.jupiter.api.Assertions.assertNotNull($OBJ$);$END$" description="assertNotNull assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
     <variable name="OBJ" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_TEST_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="ast" value="org.junit.jupiter.api.Assertions.assertTrue($CONDITION$, () -&gt; &quot;$MSG$&quot;);$END$" description="assertTrue assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
+    <variable name="CONDITION" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_TEST_STATEMENT" value="true" />
     </context>
