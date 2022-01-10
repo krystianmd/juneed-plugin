@@ -8,20 +8,20 @@ import org.jetbrains.annotations.NotNull;
 import static com.madrakrystian.juneed.template.live.TestUtils.isWithinTestSources;
 
 /**
- * Provides context of java test statement.
+ * Provides context of java test declaration.
  * Can be used in the plugin.xml file to provide liveTemplateContext implementation
  */
-public class JavaTestStatementContext extends JavaCodeContextType.Statement {
+public class JavaTestDeclarationContext extends JavaCodeContextType.Declaration {
 
-    private static final String CONTEXT_ID = "JAVA_TEST_STATEMENT";
-    private static final String CONTEXT_PRESENTABLE_NAME = "Java test statement";
+    private static final String CONTEXT_ID = "JAVA_TEST_DECLARATION";
+    private static final String CONTEXT_PRESENTABLE_NAME = "Java test declaration";
 
     /**
-     * Checks if given {@link PsiElement} matches all java statement context conditions
+     * Checks if given {@link PsiElement} matches all java declaration context conditions
      * and if it's within test sources.
      *
      * @param element part of the PSI tree e.g. Java File
-     * @return true if given element fulfills all test statement conditions, false otherwise
+     * @return true if given element fulfills all test declaration conditions, false otherwise
      */
     @Override
     protected boolean isInContext(@NotNull PsiElement element) {
