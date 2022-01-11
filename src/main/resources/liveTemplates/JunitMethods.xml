@@ -1,0 +1,53 @@
+<templateSet group="JunitMethods">
+    <template name="jptIn" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.ValueSource(ints = {$INTS$})&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$(int source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="Parametrized test with ints values" toReformat="true" toShortenFQNames="true">
+        <variable name="INTS" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="JAVA_TEST_DECLARATION" value="true" />
+        </context>
+    </template>
+    <template name="jptNuEm" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.NullAndEmptySource&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$($PARAM_TYPE$ source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="Parametrized test with null and empty sources" toReformat="true" toShortenFQNames="true">
+        <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="PARAM_TYPE" expression="" defaultValue="String" alwaysStopAt="true" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="JAVA_TEST_DECLARATION" value="true" />
+        </context>
+    </template>
+    <template name="jptSt" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.ValueSource(strings = {$STRINGS$})&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$(String source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="Parametrized test with stings values" toReformat="true" toShortenFQNames="true">
+        <variable name="STRINGS" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="JAVA_TEST_DECLARATION" value="true" />
+        </context>
+    </template>
+    <template name="jptEn" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.EnumSource($ENUM$.class)&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$($ENUM$ source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="Parametrized test with enum type" toReformat="true" toShortenFQNames="true">
+        <variable name="ENUM" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="JAVA_TEST_DECLARATION" value="true" />
+        </context>
+    </template>
+    <template name="jptMet" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.MethodSource(&quot;$METHOD$&quot;)&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$($PARAM_TYPE$ source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="Parametrized test with method stream source" toReformat="true" toShortenFQNames="true">
+        <variable name="METHOD" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="PARAM_TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="JAVA_TEST_DECLARATION" value="true" />
+        </context>
+    </template>
+</templateSet>

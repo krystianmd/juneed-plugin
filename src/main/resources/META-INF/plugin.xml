@@ -13,9 +13,11 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- CONTEXT -->
         <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestStatementContext"/>
+        <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestDeclarationContext"/>
 
         <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/JunitAssertions.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/JunitMethods.xml"/>
     </extensions>
 
     <actions>
