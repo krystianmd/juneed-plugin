@@ -1,4 +1,4 @@
-<templateSet group="JunitAssertions">
+<templateSet group="JUnitAssertions">
     <template name="asa" value="org.junit.jupiter.api.Assertions.assertAll(&quot;$MSG$&quot;,&#10;        () -&gt; org.junit.jupiter.api.Assertions.assertEquals($EXPECTED$, $ACTUAL$)$END$&#10;    );" description="assertAll assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
         <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="EXPECTED" expression="" defaultValue="" alwaysStopAt="true" />

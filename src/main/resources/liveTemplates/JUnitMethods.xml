@@ -1,4 +1,4 @@
-<templateSet group="JunitMethods">
+<templateSet group="JUnitMethods">
     <template name="jptIn" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.ValueSource(ints = {$INTS$})&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$(int source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="Parametrized test with ints values" toReformat="true" toShortenFQNames="true">
         <variable name="INTS" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
