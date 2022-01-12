@@ -17,7 +17,7 @@
 
         <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/JUnitAssertions.xml"/>
-        <defaultLiveTemplates file="/liveTemplates/JUnitMethods.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/JUnitTests.xml"/>
     </extensions>
 
     <actions>
