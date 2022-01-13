@@ -1,5 +1,5 @@
-<templateSet group="JUnitMethods">
-    <template name="jptIn" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.ValueSource(ints = {$INTS$})&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$(int source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="JUnit parametrized test with ints values" toReformat="true" toShortenFQNames="true">
+<templateSet group="JUnitTests">
+    <template name="jptInt" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.ValueSource(ints = {$INTS$})&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$(int source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="JUnit parametrized test with ints values" toReformat="true" toShortenFQNames="true">
         <variable name="INTS" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
@@ -19,7 +19,7 @@
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
     </template>
-    <template name="jptSt" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.ValueSource(strings = {$STRINGS$})&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$(String source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="JUnit parametrized test with stings values" toReformat="true" toShortenFQNames="true">
+    <template name="jptStr" value="@org.junit.jupiter.params.ParameterizedTest&#10;@org.junit.jupiter.params.provider.ValueSource(strings = {$STRINGS$})&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;void $METHOD_NAME$_Should$SHOULD$_When$WHEN$(String source) {&#10;    // when&#10;    $END$&#10;    // then&#10;}" description="JUnit parametrized test with stings values" toReformat="true" toShortenFQNames="true">
         <variable name="STRINGS" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
@@ -62,7 +62,7 @@
     <template name="jnt" value="@org.junit.jupiter.api.Nested&#10;@org.junit.jupiter.api.DisplayName(&quot;$DESCRIPTION$&quot;)&#10;class $CLASS_NAME$ {&#10;    &#10;    $END$&#10;}" description="JUnit Nested test class" toReformat="true" toShortenFQNames="true">
         <variable name="CLASS_NAME" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="DESCRIPTION" expression="concat(&quot;Test &quot;, spaceSeparated(CLASS_NAME))" defaultValue="" alwaysStopAt="false" />
-    <context>
+        <context>
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
     </template>

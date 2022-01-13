@@ -11,7 +11,7 @@
     <depends>com.intellij.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- CONTEXT -->
+        <!-- CONTEXTS -->
         <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestStatementContext"/>
         <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestDeclarationContext"/>
 
