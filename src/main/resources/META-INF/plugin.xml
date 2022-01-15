@@ -18,6 +18,9 @@
         <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/JUnitAssertions.xml"/>
         <defaultLiveTemplates file="/liveTemplates/JUnitTests.xml"/>
+
+        <!-- MACROS -->
+        <liveTemplateMacro implementation="com.madrakrystian.juneed.template.live.LowercaseMacro"/> <!-- why is it not in predefined macros? !-->
     </extensions>
 
     <actions>
