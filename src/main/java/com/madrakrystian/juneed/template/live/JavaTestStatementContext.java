@@ -13,28 +13,27 @@ import static com.madrakrystian.juneed.template.live.TestUtils.isWithinTestSourc
  */
 public class JavaTestStatementContext extends JavaCodeContextType.Statement {
 
-    private static final String CONTEXT_ID = "JAVA_TEST_STATEMENT";
-    private static final String CONTEXT_PRESENTABLE_NAME = "Java test statement";
-
     /**
-     * Checks if given {@link PsiElement} matches all java statement context conditions
-     * and if it's within test sources.
-     *
-     * @param element part of the PSI tree e.g. Java File
-     * @return true if given element fulfills all test statement conditions, false otherwise
+     * Checks if given {@link PsiElement} matches java statement context conditions and if it's within test sources.
      */
     @Override
     protected boolean isInContext(@NotNull PsiElement element) {
         return super.isInContext(element) && isWithinTestSources(element);
     }
 
+    /**
+     * To override context description which is provided in {@link Statement} constructor.
+     */
     @Override
     public @NotNull String getPresentableName() {
-        return CONTEXT_PRESENTABLE_NAME;
+        return "Java test statement";
     }
 
+    /**
+     * To override context id which is provided in {@link Statement} constructor.
+     */
     @Override
     public @NotNull @NonNls String getContextId() {
-        return CONTEXT_ID;
+        return "JAVA_TEST_STATEMENT";
     }
 }
