@@ -4,7 +4,7 @@
         <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
-        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, lowercase(spaceSeparated(SHOULD)), &quot; when &quot;, lowercase(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
         <context>
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
@@ -14,7 +14,7 @@
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="PARAM_TYPE" expression="" defaultValue="String" alwaysStopAt="true" />
-        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, lowercase(spaceSeparated(SHOULD)), &quot; when &quot;, lowercase(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
         <context>
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
@@ -24,7 +24,7 @@
         <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
-        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, lowercase(spaceSeparated(SHOULD)), &quot; when &quot;, lowercase(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
         <context>
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
@@ -34,7 +34,7 @@
         <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
-        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, lowercase(spaceSeparated(SHOULD)), &quot; when &quot;, lowercase(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
         <context>
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
@@ -45,7 +45,7 @@
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="PARAM_TYPE" expression="" defaultValue="" alwaysStopAt="true" />
-        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, lowercase(spaceSeparated(SHOULD)), &quot; when &quot;, lowercase(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
         <context>
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
@@ -54,7 +54,7 @@
         <variable name="METHOD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="SHOULD" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="WHEN" expression="" defaultValue="" alwaysStopAt="true" />
-        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, decapitalize(spaceSeparated(SHOULD)), &quot; when &quot;, decapitalize(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
+        <variable name="DESCRIPTION" expression="concat(capitalize(METHOD_NAME), &quot; should &quot;, lowercase(spaceSeparated(SHOULD)), &quot; when &quot;, lowercase(spaceSeparated(WHEN)))" defaultValue="" alwaysStopAt="false" />
         <context>
             <option name="JAVA_TEST_DECLARATION" value="true" />
         </context>
