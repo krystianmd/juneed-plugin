@@ -20,7 +20,7 @@
         <defaultLiveTemplates file="/liveTemplates/JUnitTests.xml"/>
 
         <!-- MACROS -->
-        <liveTemplateMacro implementation="com.madrakrystian.juneed.template.live.LowercaseMacro"/> <!-- why is it not in predefined macros? !-->
+        <liveTemplateMacro implementation="com.madrakrystian.juneed.template.live.LowercaseAndSpaceMacro"/>
     </extensions>
 
     <actions>

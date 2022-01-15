@@ -2,32 +2,27 @@ package com.madrakrystian.juneed.template.live;
 
 import com.intellij.codeInsight.template.*;
 import com.intellij.codeInsight.template.macro.MacroBase;
+import com.intellij.psi.codeStyle.NameUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Locale;
 
 /**
  * Converts a string into lowercase.
  *
- * For example, lowercase("A Hobbit From Shire") returns "a hobbit from shire"
+ * For example, lowercaseAndSpace("AHobbitFromShire") returns "a hobbit from shire"
  */
-public class LowercaseMacro extends MacroBase {
+public class LowercaseAndSpaceMacro extends MacroBase {
 
-    public LowercaseMacro() {
-        super("lowercase", "lowercase(String)");
+    public LowercaseAndSpaceMacro() {
+        super("lowercaseAndSpace", "lowercaseAndSpace(String)");
     }
 
     @Override
     protected @Nullable Result calculateResult(Expression @NotNull [] params, ExpressionContext context, boolean quick) {
         String text = getTextResult(params, context, true);
-        if (text == null) {
-            return null;
-        }
-        if (!text.isBlank()) {
-            text = text.toLowerCase(Locale.ROOT);
-        }
-        return new TextResult(text);
+        return StringUtils.isBlank(text) ? new TextResult("")
+                : new TextResult(NameUtil.splitWords(text, ' ', String::toLowerCase));
     }
 
     @Override
