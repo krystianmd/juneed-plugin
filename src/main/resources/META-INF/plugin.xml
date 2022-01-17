@@ -21,7 +21,6 @@
         <defaultLiveTemplates file="/liveTemplates/AssertJAssertions"/>
 
         <!-- MACROS -->
-        <liveTemplateMacro implementation="com.madrakrystian.juneed.template.live.LowercaseAndSpaceMacro"/>
     </extensions>
 
     <actions>
