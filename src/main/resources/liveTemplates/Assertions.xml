@@ -1,0 +1,72 @@
+<templateSet group="Assertions">
+    <template name="asa"
+              value="org.junit.jupiter.api.Assertions.assertAll(&quot;$MSG$&quot;,&#10;        () -&gt; $END$&#10;    );"
+              description="JUnit assertAll assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
+        <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+    <template name="ase" value="org.junit.jupiter.api.Assertions.assertEquals($EXPECTED$, $ACTUAL$);$END$"
+              description="JUnit assertEquals assertion" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
+        <variable name="EXPECTED" expression="" defaultValue="" alwaysStopAt="true"/>
+        <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+    <template name="asf"
+              value="org.junit.jupiter.api.Assertions.assertFalse($CONDITION$, () -&gt; &quot;$MSG$&quot;);$END$"
+              description="JUnit assertFalse assertion" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
+        <variable name="CONDITION" expression="" defaultValue="" alwaysStopAt="true"/>
+        <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+    <template name="asn" value="org.junit.jupiter.api.Assertions.assertNull($OBJ$);$END$"
+              description="JUnit assertNull assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
+        <variable name="OBJ" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+    <template name="asnn" value="org.junit.jupiter.api.Assertions.assertNotNull($OBJ$);$END$"
+              description="JUnit assertNotNull assertion" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
+        <variable name="OBJ" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+    <template name="ast"
+              value="org.junit.jupiter.api.Assertions.assertTrue($CONDITION$, () -&gt; &quot;$MSG$&quot;);$END$"
+              description="JUnit assertTrue assertion" toReformat="true" toShortenFQNames="true" useStaticImport="true">
+        <variable name="CONDITION" expression="" defaultValue="" alwaysStopAt="true"/>
+        <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+    <template name="asth" value="org.junit.jupiter.api.Assertions.assertThrows($EXC$.class, () -&gt; $EXEC$);$END$"
+              description="JUnit assertThrows assertion" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
+        <variable name="EXC" expression="" defaultValue="" alwaysStopAt="true"/>
+        <variable name="EXEC" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+    <template name="asti"
+              value="org.junit.jupiter.api.Assertions.assertTimeout(java.time.Duration.ofMillis($MIL$), () -&gt; $EXEC$);$END$"
+              description="JUnit assertTimeout assertion" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
+        <variable name="MIL" expression="" defaultValue="" alwaysStopAt="true"/>
+        <variable name="EXEC" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
+    </template>
+</templateSet>

@@ -1,4 +1,4 @@
-<templateSet group="AssertJAssertions">
+<templateSet group="FluentAssertions">
     <template name="fase" value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).isEqualTo($EXPECTED$);$END$"
               description="AssertJ assertThat # is equal to assertion" toReformat="true" toShortenFQNames="true"
               useStaticImport="true">
@@ -41,7 +41,7 @@
         </context>
     </template>
     <template name="fasth"
-              value="org.assertj.core.api.Assertions.assertThatExceptionOfType($EXC$.class)&#10;    .isThrownBy(() -&gt; $EXEC$)&#10;    .withMessage(&quot;$MSG$&quot;);$END$"
+              value="org.assertj.core.api.Assertions.assertThatExceptionOfType($EXC$.class)&#10;    .isThrownBy(() -&gt; $EXEC$)&#10;    .withMessageContaining(&quot;$MSG$&quot;);$END$"
               description="AssertJ assertThat exception of type is thrown by #" toReformat="true"
               toShortenFQNames="true" useStaticImport="true">
         <variable name="EXC" expression="" defaultValue="" alwaysStopAt="true"/>
@@ -51,7 +51,7 @@
             <option name="JAVA_TEST_STATEMENT" value="true"/>
         </context>
     </template>
-    <template name="fasIO"
+    <template name="fasIo"
               value="org.assertj.core.api.Assertions.assertThatIOException().isThrownBy(() -&gt; $EXEC$)&#10;    .withMessage(&quot;$MSG$&quot;);$END$"
               description="AssertJ assertThat IO exception is thrown by #" toReformat="true" toShortenFQNames="true"
               useStaticImport="true">
@@ -81,7 +81,7 @@
             <option name="JAVA_TEST_STATEMENT" value="true"/>
         </context>
     </template>
-    <template name="fasNPE"
+    <template name="fasNpe"
               value="org.assertj.core.api.Assertions.assertThatNullPointerException().isThrownBy(() -&gt; $EXEC$)&#10;    .withMessage(&quot;$MSG$&quot;);$END$"
               description="AssertJ assertThat Null Pointer exception is thrown by #" toReformat="true"
               toShortenFQNames="true" useStaticImport="true">

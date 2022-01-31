@@ -16,9 +16,9 @@
         <liveTemplateContext implementation="com.madrakrystian.juneed.template.live.JavaTestDeclarationContext"/>
 
         <!-- LIVE TEMPLATES -->
-        <defaultLiveTemplates file="/liveTemplates/JUnitAssertions.xml"/>
-        <defaultLiveTemplates file="/liveTemplates/JUnitTests.xml"/>
-        <defaultLiveTemplates file="/liveTemplates/AssertJAssertions"/>
+        <defaultLiveTemplates file="/liveTemplates/Assertions.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/FluentAssertions.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/TestMethods"/>
 
         <!-- MACROS -->
     </extensions>
