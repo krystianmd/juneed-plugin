@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaTokenType;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiJavaToken;
+import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.PsiReferenceExpression;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,10 +40,14 @@ public abstract class AssertionConverterIntentionAction extends PsiElementBaseIn
             return false;
         }
 
-        if (!(token.getParent() instanceof PsiReferenceExpression)) {
-            return false;
+        if (token.getParent() instanceof PsiReferenceExpression) {
+            final PsiReferenceExpression referenceExpression = (PsiReferenceExpression) token.getParent();
+
+            if (referenceExpression.getParent() instanceof PsiMethodCallExpression) {
+                return token.textMatches(assertionName);
+            }
         }
-        return token.textMatches(assertionName);
+        return false;
     }
 
     @Override
