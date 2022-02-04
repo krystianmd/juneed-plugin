@@ -7,10 +7,14 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaTokenType;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiJavaToken;
 import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.PsiReferenceExpression;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import static com.madrakrystian.juneed.TestUtils.isWithinTestSources;
 
 public abstract class AssertionConverterIntentionAction extends PsiElementBaseIntentionAction implements IntentionAction {
 
@@ -48,6 +52,14 @@ public abstract class AssertionConverterIntentionAction extends PsiElementBaseIn
             }
         }
         return false;
+    }
+
+    /**
+     * Checks whether this intention is used inside test sources.
+     */
+    @Override
+    public boolean checkFile(@Nullable PsiFile file) {
+        return file != null && isWithinTestSources(file);
     }
 
     @Override
