@@ -1,4 +1,4 @@
-package com.madrakrystian.juneed.template.live;
+package com.madrakrystian.juneed;
 
 
 import com.intellij.psi.PsiElement;
@@ -10,14 +10,14 @@ import static com.intellij.openapi.roots.TestSourcesFilter.isTestSources;
 /**
  * Utility class for test consistencies on {@link PsiElement}.
  */
-final class TestUtils {
+public final class TestUtils {
 
     private TestUtils() {}
 
     /**
      * Checks if given element file is located under test sources root.
      */
-    static boolean isWithinTestSources(@NotNull PsiElement element) {
+    public static boolean isWithinTestSources(@NotNull PsiElement element) {
         final PsiFile file = element.getContainingFile().getOriginalFile();
         return isTestSources(file.getVirtualFile(), file.getProject());
     }

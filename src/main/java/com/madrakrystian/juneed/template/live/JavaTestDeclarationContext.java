@@ -5,7 +5,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
-import static com.madrakrystian.juneed.template.live.TestUtils.isWithinTestSources;
+import static com.madrakrystian.juneed.TestUtils.isWithinTestSources;
 
 /**
  * Provides context of java test declaration.
