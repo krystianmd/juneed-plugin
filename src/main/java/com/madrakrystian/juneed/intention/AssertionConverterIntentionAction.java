@@ -8,6 +8,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaTokenType;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiExpressionList;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiJavaToken;
 import com.intellij.psi.PsiMethodCallExpression;
@@ -41,22 +42,25 @@ public abstract class AssertionConverterIntentionAction extends PsiElementBaseIn
         }
 
         final PsiJavaToken token = (PsiJavaToken) element;
-        if (token.getTokenType() != JavaTokenType.IDENTIFIER) {
+        if (token.getTokenType() != JavaTokenType.IDENTIFIER && !token.textMatches(assertionName)) {
             return false;
         }
 
-        if (token.getParent() instanceof PsiReferenceExpression) {
-            final PsiReferenceExpression referenceExpression = (PsiReferenceExpression) token.getParent();
+        final PsiElement parent = token.getParent();
+        if (parent instanceof PsiReferenceExpression) {
 
-            if (referenceExpression.getParent() instanceof PsiMethodCallExpression) {
-                return token.textMatches(assertionName);
+            final PsiElement grandparent = parent.getParent();
+            if (grandparent instanceof PsiMethodCallExpression) {
+                return isArgumentListValid(((PsiMethodCallExpression) grandparent).getArgumentList());
             }
         }
         return false;
     }
 
+    abstract boolean isArgumentListValid(PsiExpressionList expressionList);
+
     /**
-     * Checks whether this intention is used inside test sources.
+     * Checks whether this intention is available in file.
      */
     @Override
     public boolean checkFile(@Nullable PsiFile file) {
