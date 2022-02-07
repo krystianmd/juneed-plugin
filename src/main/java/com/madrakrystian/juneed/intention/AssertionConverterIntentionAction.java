@@ -3,6 +3,7 @@ package com.madrakrystian.juneed.intention;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction;
 import com.intellij.codeInspection.util.IntentionFamilyName;
+import com.intellij.codeInspection.util.IntentionName;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaTokenType;
@@ -64,6 +65,11 @@ public abstract class AssertionConverterIntentionAction extends PsiElementBaseIn
 
     @Override
     public @NotNull @IntentionFamilyName String getFamilyName() {
+        return "AssertionConverterIntention";
+    }
+
+    @Override
+    public @IntentionName @NotNull String getText() {
         return "Convert to AssertJ fluent assertion";
     }
 }
