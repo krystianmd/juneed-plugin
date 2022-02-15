@@ -42,14 +42,21 @@ public abstract class AssertionConverterIntentionAction extends PsiElementBaseIn
         }
 
         final PsiJavaToken token = (PsiJavaToken) element;
-        if (token.getTokenType() != JavaTokenType.IDENTIFIER && !token.textMatches(assertionName)) {
+        if (!isAssertionNameIdentifier(token)) { // fail-fast test
             return false;
         }
 
         final PsiElement parent = token.getParent();
-        if (parent instanceof PsiReferenceExpression) {
+        return hasValidMethodCallPredecessor(parent);
+    }
 
-            final PsiElement grandparent = parent.getParent();
+    private boolean isAssertionNameIdentifier(PsiJavaToken token) {
+        return token.getTokenType() == JavaTokenType.IDENTIFIER && token.textMatches(assertionName);
+    }
+
+    private boolean hasValidMethodCallPredecessor(PsiElement tokenParent) {
+        if (tokenParent instanceof PsiReferenceExpression) {
+            final PsiElement grandparent = tokenParent.getParent();
             if (grandparent instanceof PsiMethodCallExpression) {
                 return isArgumentListValid(((PsiMethodCallExpression) grandparent).getArgumentList());
             }
@@ -72,6 +79,9 @@ public abstract class AssertionConverterIntentionAction extends PsiElementBaseIn
         return "AssertionConverterIntention";
     }
 
+    /**
+     * Text shown in the intentions list.
+     */
     @Override
     public @IntentionName @NotNull String getText() {
         return "Convert to AssertJ fluent assertion";
