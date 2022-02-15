@@ -20,6 +20,12 @@
         <defaultLiveTemplates file="/liveTemplates/FluentAssertions.xml"/>
         <defaultLiveTemplates file="/liveTemplates/TestMethods"/>
 
+        <!-- INTENTIONS -->
+        <intentionAction>
+            <className>com.madrakrystian.juneed.intention.AssertThrowsConverter</className>
+            <category>Assertions conversion intentions</category>
+        </intentionAction>
+
         <!-- MACROS -->
     </extensions>
 
