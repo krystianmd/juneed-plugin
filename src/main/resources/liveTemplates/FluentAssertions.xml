@@ -1,37 +1,36 @@
 <templateSet group="FluentAssertions">
     <template name="fase" value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).isEqualTo($EXPECTED$);$END$"
-              description="AssertJ assertThat # is equal to assertion" toReformat="true" toShortenFQNames="true"
+              description="assertThat # is equal to assertion" toReformat="true" toShortenFQNames="true"
               useStaticImport="true">
         <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="EXPECTED" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_TEST_STATEMENT" value="true"/>
+        </context>
     </template>
     <template name="fasnn" value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).isNotNull();$END$"
-              description="AssertJ assertThat # is not null" toReformat="true" toShortenFQNames="true"
-              useStaticImport="true">
+              description="assertThat # is not null" toReformat="true" toShortenFQNames="true" useStaticImport="true">
         <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
             <option name="JAVA_TEST_STATEMENT" value="true"/>
         </context>
     </template>
     <template name="fast" value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).isTrue();$END$"
-              description="AssertJ assertThat # is true" toReformat="true" toShortenFQNames="true"
-              useStaticImport="true">
+              description="assertThat # is true" toReformat="true" toShortenFQNames="true" useStaticImport="true">
         <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
             <option name="JAVA_TEST_STATEMENT" value="true"/>
         </context>
     </template>
     <template name="fasf" value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).isFalse();$END$"
-              description="AssertJ assertThat # is false" toReformat="true" toShortenFQNames="true"
-              useStaticImport="true">
+              description="assertThat # is false" toReformat="true" toShortenFQNames="true" useStaticImport="true">
         <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
             <option name="JAVA_TEST_STATEMENT" value="true"/>
         </context>
     </template>
     <template name="fasn" value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).isNull();$END$"
-              description="AssertJ assertThat # is null" toReformat="true" toShortenFQNames="true"
-              useStaticImport="true">
+              description="assertThat # is null" toReformat="true" toShortenFQNames="true" useStaticImport="true">
         <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
             <option name="JAVA_TEST_STATEMENT" value="true"/>
@@ -39,8 +38,8 @@
     </template>
     <template name="fasth"
               value="org.assertj.core.api.Assertions.assertThatExceptionOfType($EXC$.class)&#10;    .isThrownBy(() -&gt; $EXEC$)&#10;    .withMessageContaining(&quot;$MSG$&quot;);$END$"
-              description="AssertJ assertThat exception of type is thrown by #" toReformat="true"
-              toShortenFQNames="true" useStaticImport="true">
+              description="assertThat exception of type is thrown by #" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
         <variable name="EXC" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="EXEC" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
@@ -50,7 +49,7 @@
     </template>
     <template name="fasIo"
               value="org.assertj.core.api.Assertions.assertThatIOException().isThrownBy(() -&gt; $EXEC$)&#10;    .withMessageContaining(&quot;$MSG$&quot;);$END$"
-              description="AssertJ assertThat IO exception is thrown by #" toReformat="true" toShortenFQNames="true"
+              description="assertThat IO exception is thrown by #" toReformat="true" toShortenFQNames="true"
               useStaticImport="true">
         <variable name="EXEC" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
@@ -60,8 +59,8 @@
     </template>
     <template name="fasIlSt"
               value="org.assertj.core.api.Assertions.assertThatIllegalStateException().isThrownBy(() -&gt; $EXEC$)&#10;    .withMessageContaining(&quot;$MSG$&quot;);$END$"
-              description="AssertJ assertThat Illegal State exception is thrown by #" toReformat="true"
-              toShortenFQNames="true" useStaticImport="true">
+              description="assertThat Illegal State exception is thrown by #" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
         <variable name="EXEC" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
@@ -70,7 +69,7 @@
     </template>
     <template name="fasIlArg"
               value="org.assertj.core.api.Assertions.assertThatIllegalArgumentException().isThrownBy(() -&gt; $EXEC$)&#10;    .withMessageContaining(&quot;$MSG$&quot;);$END$"
-              description="AssertJ assertThat Illegal Argument exception is thrown by #" toReformat="true"
+              description="assertThat Illegal Argument exception is thrown by #" toReformat="true"
               toShortenFQNames="true" useStaticImport="true">
         <variable name="EXEC" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
@@ -80,8 +79,8 @@
     </template>
     <template name="fasNpe"
               value="org.assertj.core.api.Assertions.assertThatNullPointerException().isThrownBy(() -&gt; $EXEC$)&#10;    .withMessageContaining(&quot;$MSG$&quot;);$END$"
-              description="AssertJ assertThat Null Pointer exception is thrown by #" toReformat="true"
-              toShortenFQNames="true" useStaticImport="true">
+              description="assertThat Null Pointer exception is thrown by #" toReformat="true" toShortenFQNames="true"
+              useStaticImport="true">
         <variable name="EXEC" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="MSG" expression="" defaultValue="" alwaysStopAt="true"/>
         <context>
@@ -90,8 +89,7 @@
     </template>
     <template name="fasAny"
               value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).anySatisfy($ELEMENT$ -&gt; {&#10;    $END$&#10;});"
-              description="AssertJ assertThat any satisfy" toReformat="true" toShortenFQNames="true"
-              useStaticImport="true">
+              description="assertThat any satisfy" toReformat="true" toShortenFQNames="true" useStaticImport="true">
         <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="ELEMENT" expression="suggestVariableName()" defaultValue="" alwaysStopAt="true"/>
         <context>
@@ -100,8 +98,7 @@
     </template>
     <template name="fasAll"
               value="org.assertj.core.api.Assertions.assertThat($ACTUAL$).allSatisfy($ELEMENT$ -&gt; {&#10;    $END$&#10;});"
-              description="AssertJ assertThat all satisfy" toReformat="true" toShortenFQNames="true"
-              useStaticImport="true">
+              description="assertThat all satisfy" toReformat="true" toShortenFQNames="true" useStaticImport="true">
         <variable name="ACTUAL" expression="" defaultValue="" alwaysStopAt="true"/>
         <variable name="ELEMENT" expression="suggestVariableName()" defaultValue="" alwaysStopAt="true"/>
         <context>
