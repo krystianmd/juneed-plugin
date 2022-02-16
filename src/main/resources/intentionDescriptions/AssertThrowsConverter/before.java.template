@@ -1,0 +1,1 @@
+<spot>assertThrows</spot>(Exception.class, () -> service.apply(), "message");

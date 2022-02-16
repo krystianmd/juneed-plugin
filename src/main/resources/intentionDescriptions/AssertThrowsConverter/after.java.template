@@ -1,0 +1,3 @@
+Assertions.<spot>assertThatExceptionOfType</spot>(Exception.class)
+    .isThrownBy(() -> service.apply())
+    .withMessageContaining("message");
