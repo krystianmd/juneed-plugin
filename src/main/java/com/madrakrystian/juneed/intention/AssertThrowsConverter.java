@@ -10,6 +10,7 @@ import com.intellij.psi.PsiExpressionList;
 import com.intellij.psi.PsiLambdaExpressionType;
 import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.codeStyle.CodeStyleManager;
+import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.psi.impl.source.PsiImmediateClassType;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -58,7 +59,8 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
 
         PsiMethodCallExpression newAssertionCall = createAssertionCall(factory, methodCallExpression);
 
-        newAssertionCall = (PsiMethodCallExpression) codeStylist.reformat(newAssertionCall);
+        newAssertionCall = (PsiMethodCallExpression) codeStylist
+                .reformat(JavaCodeStyleManager.getInstance(project).shortenClassReferences(newAssertionCall));
         methodCallExpression.replace(newAssertionCall);
     }
 
@@ -71,7 +73,7 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
 
     private String createAssertionTextExpression(PsiExpression[] expressions) {
         return new StringJoiner("\n")
-                .add(expressionLine("Assertions.assertThatExceptionOfType", expressions[0].getText()))
+                .add(expressionLine("org.assertj.core.api.Assertions.assertThatExceptionOfType", expressions[0].getText()))
                 .add(expressionLine(".isThrownBy", expressions[1].getText()))
                 .add(expressionLine(".withMessageContaining", expressions[2].getText()))
                 .toString();
