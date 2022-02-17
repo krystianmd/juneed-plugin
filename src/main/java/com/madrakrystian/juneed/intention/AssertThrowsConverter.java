@@ -49,18 +49,17 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
      */
     @Override
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
-        final PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-        final CodeStyleManager codeStylist = CodeStyleManager.getInstance(project);
-
         final PsiMethodCallExpression methodCallExpression = PsiTreeUtil.getParentOfType(element, PsiMethodCallExpression.class);
         if (methodCallExpression == null) {
             return;
         }
-
+        final PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
         PsiMethodCallExpression newAssertionCall = createAssertionCall(factory, methodCallExpression);
 
+        final CodeStyleManager codeStylist = CodeStyleManager.getInstance(project);
         newAssertionCall = (PsiMethodCallExpression) codeStylist
                 .reformat(JavaCodeStyleManager.getInstance(project).shortenClassReferences(newAssertionCall));
+
         methodCallExpression.replace(newAssertionCall);
     }
 
