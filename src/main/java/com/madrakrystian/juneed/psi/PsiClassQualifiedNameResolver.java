@@ -1,4 +1,4 @@
-package com.madrakrystian.juneed;
+package com.madrakrystian.juneed.psi;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiTypeElement;
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public final class PsiClassNameResolver {
+public final class PsiClassQualifiedNameResolver {
 
     /**
      * Resolves the qualified name of the {@link PsiTypeElement} class.
