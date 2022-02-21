@@ -27,6 +27,14 @@
         </intentionAction>
 
         <!-- MACROS -->
+        <localInspection language="JAVA"
+                         displayName="ExceptionOfType used instead of enriched assertion for commonly used exceptions"
+                         groupPath="Java"
+                         groupBundle="messages.InspectionsBundle"
+                         groupKey="group.names.verbose.or.redundant.code.constructs"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.madrakrystian.juneed.inspection.CommonExceptionAssertionInspection"/>
     </extensions>
 
     <actions>
