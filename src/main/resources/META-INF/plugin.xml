@@ -25,7 +25,7 @@
             <category>Assertions conversion intentions</category>
         </intentionAction>
 
-        <!-- MACROS -->
+        <!-- INSPECTIONS -->
         <localInspection language="JAVA"
                          displayName="ExceptionOfType used instead of enriched assertion for commonly used exceptions"
                          groupPath="Java"
