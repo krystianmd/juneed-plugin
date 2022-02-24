@@ -18,7 +18,6 @@
         <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/Assertions.xml"/>
         <defaultLiveTemplates file="/liveTemplates/FluentAssertions.xml"/>
-        <defaultLiveTemplates file="/liveTemplates/Tests.xml"/>
 
         <!-- INTENTIONS -->
         <intentionAction>
