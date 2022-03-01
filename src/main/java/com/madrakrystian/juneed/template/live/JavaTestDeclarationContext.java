@@ -5,7 +5,7 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
-import static com.madrakrystian.juneed.TestUtils.isWithinTestSources;
+import static com.siyeh.ig.psiutils.TestUtils.isInTestCode;
 
 /**
  * Provides context of java test declaration.
@@ -18,7 +18,7 @@ public class JavaTestDeclarationContext extends JavaCodeContextType.Declaration 
      */
     @Override
     protected boolean isInContext(@NotNull PsiElement element) {
-        return super.isInContext(element) && isWithinTestSources(element);
+        return super.isInContext(element) && isInTestCode(element);
     }
 
     /**
