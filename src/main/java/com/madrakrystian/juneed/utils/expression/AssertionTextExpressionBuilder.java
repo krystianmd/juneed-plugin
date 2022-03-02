@@ -1,8 +1,8 @@
 package com.madrakrystian.juneed.utils.expression;
 
-public final class AssertionTextExpressionBuilder {
+import static com.madrakrystian.juneed.utils.AssertJUtils.ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT;
 
-    private static final String ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT = "org.assertj.core.api.Assertions";
+public final class AssertionTextExpressionBuilder {
 
     private String expression;
 
