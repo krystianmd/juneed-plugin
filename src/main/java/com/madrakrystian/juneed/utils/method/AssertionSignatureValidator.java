@@ -3,32 +3,39 @@ package com.madrakrystian.juneed.utils.method;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * Helper class for {@link PsiMethod} assertion validations.
  */
-public final class AssertionSignatureValidator {
+public interface AssertionSignatureValidator extends Function<PsiMethod, Boolean> {
 
-    private AssertionSignatureValidator() {}
-
-    public static boolean fullyQualifiedNameEquals(@Nullable PsiMethod assertion, @NotNull String fqName) {
-        if (assertion == null) {
-            return false;
-        }
-
-        final PsiClass methodClass = assertion.getContainingClass();
-        if (methodClass == null) {
-            return false;
-        }
-        final String qualifiedName = methodClass.getQualifiedName() + "." + assertion.getName();
-        return fqName.equals(qualifiedName);
+    static AssertionSignatureValidator isNotNull() {
+        return Objects::nonNull;
     }
 
-    public static boolean hasParametersCount(@Nullable PsiMethod assertion, int count) {
-        if (assertion == null) {
-            return false;
-        }
-        return assertion.getParameterList().getParametersCount() == count;
+    static AssertionSignatureValidator fullyQualifiedNameEquals(@NotNull String fqName) {
+        return assertion -> {
+            final PsiClass methodClass = assertion.getContainingClass();
+            if (methodClass == null) {
+                return false;
+            }
+            final String qualifiedName = methodClass.getQualifiedName() + "." + assertion.getName();
+            return fqName.equals(qualifiedName);
+        };
     }
+
+    static AssertionSignatureValidator hasParametersCount(int count) {
+        return assertion -> assertion.getParameterList().getParametersCount() == count;
+    }
+
+    default AssertionSignatureValidator and(AssertionSignatureValidator other) {
+        return assertion -> {
+            Boolean result = this.apply(assertion);
+            return result.equals(Boolean.TRUE) ? other.apply(assertion) : result;
+        };
+    }
+
 }

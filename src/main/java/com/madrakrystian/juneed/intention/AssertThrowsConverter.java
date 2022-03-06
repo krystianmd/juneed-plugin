@@ -96,7 +96,9 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
 
     @Override
     protected boolean isAssertionSignatureValid(@Nullable PsiMethod assertion) {
-        return AssertionSignatureValidator.fullyQualifiedNameEquals(assertion, "org.junit.jupiter.api.Assertions.assertThrows");
+        return AssertionSignatureValidator.isNotNull()
+                .and(AssertionSignatureValidator.fullyQualifiedNameEquals("org.junit.jupiter.api.Assertions.assertThrows"))
+                .apply(assertion);
     }
 
     @Override
