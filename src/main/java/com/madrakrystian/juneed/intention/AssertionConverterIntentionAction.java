@@ -11,12 +11,13 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiExpressionList;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiJavaToken;
+import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiMethodCallExpression;
-import com.intellij.psi.PsiReferenceExpression;
+import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.madrakrystian.juneed.TestUtils.isWithinTestSources;
+import static com.siyeh.ig.psiutils.TestUtils.isInTestSourceContent;
 
 public abstract class AssertionConverterIntentionAction extends PsiElementBaseIntentionAction implements IntentionAction {
 
@@ -46,32 +47,27 @@ public abstract class AssertionConverterIntentionAction extends PsiElementBaseIn
             return false;
         }
 
-        final PsiElement parent = token.getParent();
-        return hasValidMethodCallPredecessor(parent);
+        final PsiMethodCallExpression assertionCall = PsiTreeUtil.getParentOfType(element, PsiMethodCallExpression.class);
+        if (assertionCall == null) {
+            return false;
+        }
+        return isAssertionSignatureValid(assertionCall.resolveMethod()) && isArgumentListValid(assertionCall.getArgumentList());
     }
 
-    private boolean isAssertionNameIdentifier(PsiJavaToken token) {
+    private boolean isAssertionNameIdentifier(@NotNull PsiJavaToken token) {
         return token.getTokenType() == JavaTokenType.IDENTIFIER && token.textMatches(assertionName);
     }
 
-    private boolean hasValidMethodCallPredecessor(PsiElement tokenParent) {
-        if (tokenParent instanceof PsiReferenceExpression) {
-            final PsiElement grandparent = tokenParent.getParent();
-            if (grandparent instanceof PsiMethodCallExpression) {
-                return isArgumentListValid(((PsiMethodCallExpression) grandparent).getArgumentList());
-            }
-        }
-        return false;
-    }
+    abstract protected boolean isAssertionSignatureValid(@Nullable PsiMethod assertion);
 
-    abstract boolean isArgumentListValid(PsiExpressionList expressionList);
+    abstract protected boolean isArgumentListValid(@NotNull PsiExpressionList assertionCallArguments);
 
     /**
      * Checks whether this intention is available in file.
      */
     @Override
     public boolean checkFile(@Nullable PsiFile file) {
-        return file != null && isWithinTestSources(file);
+        return isInTestSourceContent(file);
     }
 
     @Override

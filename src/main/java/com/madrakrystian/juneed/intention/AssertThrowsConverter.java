@@ -2,24 +2,27 @@ package com.madrakrystian.juneed.intention;
 
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.JavaPsiFacade;
+import com.intellij.psi.LambdaUtil;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiClassObjectAccessExpression;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
 import com.intellij.psi.PsiExpression;
 import com.intellij.psi.PsiExpressionList;
-import com.intellij.psi.PsiLambdaExpressionType;
+import com.intellij.psi.PsiLambdaExpression;
+import com.intellij.psi.PsiLiteralExpression;
+import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiMethodCallExpression;
-import com.intellij.psi.codeStyle.CodeStyleManager;
-import com.intellij.psi.codeStyle.JavaCodeStyleManager;
-import com.intellij.psi.impl.source.PsiClassReferenceType;
-import com.intellij.psi.impl.source.PsiImmediateClassType;
+import com.intellij.psi.PsiTypeElement;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.psi.util.PsiUtil;
 import com.intellij.util.IncorrectOperationException;
+import com.madrakrystian.juneed.utils.methodCall.AssertionFactory;
+import com.madrakrystian.juneed.utils.AssertJUtils;
+import com.madrakrystian.juneed.utils.expression.AssertionTextExpressionBuilder;
+import com.madrakrystian.juneed.utils.expression.AssertionArgumentsValidator;
+import com.madrakrystian.juneed.utils.method.AssertionSignatureValidator;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.StringJoiner;
-
-import static com.madrakrystian.juneed.intention.TextExpressionUtils.expressionLine;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Implements an intention action to replace JUnit assertThrows() assertion with AssertJ fluent one.
@@ -53,36 +56,55 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
         if (methodCallExpression == null) {
             return;
         }
-        final PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-        PsiMethodCallExpression newAssertionCall = createAssertionCall(factory, methodCallExpression);
+        final PsiExpression[] expressions = methodCallExpression.getArgumentList().getExpressions();
+        final PsiTypeElement operand = ((PsiClassObjectAccessExpression) expressions[0]).getOperand();
+        final PsiClass exceptionClass = PsiUtil.resolveClassInClassTypeOnly(operand.getType());
+        if (exceptionClass == null) {
+            return;
+        }
+        final String exceptionQualifiedName = exceptionClass.getQualifiedName();
+        if (exceptionQualifiedName == null) {
+            return;
+        }
+        final PsiLambdaExpression lambda = ((PsiLambdaExpression) expressions[1]);
+        final PsiExpression lambdaExpression = LambdaUtil.extractSingleExpressionFromBody(lambda.getBody());
+        if (lambdaExpression == null) {
+            return;
+        }
+        final PsiLiteralExpression literal = ((PsiLiteralExpression) expressions[2]);
 
-        final CodeStyleManager codeStylist = CodeStyleManager.getInstance(project);
-        newAssertionCall = (PsiMethodCallExpression) codeStylist
-                .reformat(JavaCodeStyleManager.getInstance(project).shortenClassReferences(newAssertionCall));
-
+        final String assertionTextExpression = createAssertionTextExpression(exceptionQualifiedName, exceptionClass.getName(), lambdaExpression.getText(), literal.getText());
+        final PsiMethodCallExpression newAssertionCall = AssertionFactory.createFormatted(project, assertionTextExpression);
         methodCallExpression.replace(newAssertionCall);
     }
 
     @NotNull
-    private PsiMethodCallExpression createAssertionCall(PsiElementFactory factory, PsiMethodCallExpression originalAssertionCall) {
-        final PsiExpression[] expressions = originalAssertionCall.getArgumentList().getExpressions();
-        return (PsiMethodCallExpression) factory
-                .createExpressionFromText(createAssertionTextExpression(expressions), originalAssertionCall);
-    }
+    private String createAssertionTextExpression(String exceptionQualifiedName, String exceptionName, String lambdaExpression, String message) {
+        final AssertionTextExpressionBuilder assertionTextExpressionBuilder;
 
-    private String createAssertionTextExpression(PsiExpression[] expressions) {
-        return new StringJoiner("\n")
-                .add(expressionLine("org.assertj.core.api.Assertions.assertThatExceptionOfType", expressions[0].getText()))
-                .add(expressionLine(".isThrownBy", expressions[1].getText()))
-                .add(expressionLine(".withMessageContaining", expressions[2].getText()))
-                .toString();
+        final String assertionMethod = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
+        if ("assertThatExceptionOfType".equals(assertionMethod)) {
+            assertionTextExpressionBuilder = AssertionTextExpressionBuilder.assertJAssertion(assertionMethod).parameter(exceptionName + ".class");
+        } else {
+            assertionTextExpressionBuilder = AssertionTextExpressionBuilder.assertJAssertion(assertionMethod).noParameters();
+        }
+        return assertionTextExpressionBuilder
+                .fluentMethodCall("isThrownBy").parameter("() -> " + lambdaExpression)
+                .fluentMethodCall("withMessageContaining").parameter(message)
+                .build();
     }
 
     @Override
-    boolean isArgumentListValid(PsiExpressionList argumentList) {
-        return argumentList.getExpressionCount() == 3
-                && argumentList.getExpressionTypes()[0] instanceof PsiImmediateClassType
-                && argumentList.getExpressionTypes()[1] instanceof PsiLambdaExpressionType
-                && argumentList.getExpressionTypes()[2] instanceof PsiClassReferenceType;
+    protected boolean isAssertionSignatureValid(@Nullable PsiMethod assertion) {
+        return AssertionSignatureValidator.fullyQualifiedNameEquals(assertion, "org.junit.jupiter.api.Assertions.assertThrows");
+    }
+
+    @Override
+    protected boolean isArgumentListValid(@NotNull PsiExpressionList assertionCallArguments) {
+        final PsiExpression[] expressions = assertionCallArguments.getExpressions();
+        return assertionCallArguments.getExpressionCount() == 3
+                && AssertionArgumentsValidator.isExceptionClass(expressions[0])
+                && AssertionArgumentsValidator.isExecutableLambdaExpression(expressions[1])
+                && AssertionArgumentsValidator.isLiteralString(expressions[2]);
     }
 }
