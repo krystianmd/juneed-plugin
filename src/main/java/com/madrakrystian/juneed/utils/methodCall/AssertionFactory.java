@@ -1,4 +1,4 @@
-package com.madrakrystian.juneed.psi;
+package com.madrakrystian.juneed.utils.methodCall;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
@@ -8,14 +8,14 @@ import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import org.jetbrains.annotations.NotNull;
 
-public final class PsiMethodCallExpressionFactory {
+public final class AssertionFactory {
 
     /**
      * Creates assertion {@link PsiMethodCallExpression} from expression text and formats it according to the the {@link Project} style.
      */
     public static @NotNull PsiMethodCallExpression createFormatted(@NotNull Project project, @NotNull String expressionText) {
         final PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-        PsiMethodCallExpression assertion =  (PsiMethodCallExpression) factory
+        PsiMethodCallExpression assertion = (PsiMethodCallExpression) factory
                 .createExpressionFromText(expressionText, null);
 
         final CodeStyleManager codeStylist = CodeStyleManager.getInstance(project);
