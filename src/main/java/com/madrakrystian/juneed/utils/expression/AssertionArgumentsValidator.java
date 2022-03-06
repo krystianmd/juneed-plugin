@@ -11,6 +11,9 @@ import com.intellij.psi.util.InheritanceUtil;
 import com.intellij.psi.util.PsiUtil;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Helper class for {@link PsiExpression} assertion argument validations.
+ */
 public final class AssertionArgumentsValidator {
 
     private AssertionArgumentsValidator() {}
@@ -28,7 +31,7 @@ public final class AssertionArgumentsValidator {
         return InheritanceUtil.isInheritor(expressionClass, CommonClassNames.JAVA_LANG_THROWABLE);
     }
 
-    public static boolean isLambdaExpression(@NotNull PsiExpression expression) {
+    public static boolean isExecutableLambdaExpression(@NotNull PsiExpression expression) {
         return expression instanceof PsiLambdaExpression &&
                 ((PsiLambdaExpression) expression).getParameterList().getParametersCount() == 0;
     }
