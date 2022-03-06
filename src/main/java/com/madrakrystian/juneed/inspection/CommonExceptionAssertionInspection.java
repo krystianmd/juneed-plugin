@@ -7,16 +7,19 @@ import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaElementVisitor;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassObjectAccessExpression;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiExpression;
 import com.intellij.psi.PsiExpressionList;
 import com.intellij.psi.PsiMethodCallExpression;
-import com.intellij.psi.PsiReferenceExpression;
 import com.intellij.psi.PsiTypeElement;
+import com.intellij.psi.util.PsiUtil;
 import com.intellij.util.IncorrectOperationException;
-import com.madrakrystian.juneed.psi.PsiMethodCallExpressionFactory;
-import com.madrakrystian.juneed.psi.PsiClassQualifiedNameResolver;
+import com.madrakrystian.juneed.utils.method.AssertionSignatureValidator;
+import com.madrakrystian.juneed.utils.methodCall.AssertionFactory;
+import com.madrakrystian.juneed.utils.AssertJUtils;
+import com.madrakrystian.juneed.utils.expression.AssertionTextExpressionBuilder;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,21 +33,29 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
      * Identifier of the Assertions.assertThatExceptionOfType method used for asserting an exception occurrence.
      */
     @NonNls
-    private static final String ASSERT_THAT_EXCEPTION_OF_TYPE = "assertThatExceptionOfType";
+    private static final String OLD_ASSERTION_QUALIFIED_NAME = "org.assertj.core.api.Assertions.assertThatExceptionOfType";
+
+    @NonNls
+    public static final String FQ_ILLEGAL_ARGUMENT_EXCEPTION = "java.lang.IllegalArgumentException";
+    @NonNls
+    public static final String FQ_ILLEGAL_STATE_EXCEPTION = "java.lang.IllegalStateException";
+    @NonNls
+    public static final String FQ_NPE_EXCEPTION = "java.lang.NullPointerException";
+    @NonNls
+    public static final String FQ_IO_EXCEPTION = "java.io.IOException";
 
     /**
      * List of common exceptions that were chosen for enriched syntax of throw assertions.
      */
     @NonNls
-    private static final List<String> COMMON_EXCEPTIONS =
-            List.of("java.lang.IllegalArgumentException", "java.lang.IllegalStateException", "java.lang.NullPointerException", "java.io.IOException");
+    private static final List<String> FQ_COMMON_EXCEPTIONS =
+            List.of(FQ_ILLEGAL_ARGUMENT_EXCEPTION, FQ_ILLEGAL_STATE_EXCEPTION, FQ_NPE_EXCEPTION, FQ_IO_EXCEPTION);
 
 
     private final LocalQuickFix quickFix = new AssertionQuickFix();
 
-
     /**
-     * Inspects method call expression of the {@value #ASSERT_THAT_EXCEPTION_OF_TYPE} assertion
+     * Inspects method call expression of the {@value #OLD_ASSERTION_QUALIFIED_NAME} assertion
      * with one of the common exceptions as an argument.
      *
      * The visitor must not be recursive and must be thread-safe.
@@ -69,30 +80,35 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
             public void visitMethodCallExpression(PsiMethodCallExpression expression) {
                 super.visitMethodCallExpression(expression);
 
-                final PsiReferenceExpression methodExpression = expression.getMethodExpression();
-                final PsiExpressionList arguments = expression.getArgumentList();
-                if (!isMethodSignatureEligibleForInspection(methodExpression.getReferenceName(), arguments)) {
+                boolean isAssertionSignatureValid = AssertionSignatureValidator.isNotNull()
+                        .and(AssertionSignatureValidator.fullyQualifiedNameEquals(OLD_ASSERTION_QUALIFIED_NAME))
+                        .and(AssertionSignatureValidator.hasParametersCount(1))
+                        .apply(expression.resolveMethod());
+                if (!isAssertionSignatureValid) {
                     return;
                 }
 
+                final PsiExpressionList arguments = expression.getArgumentList();
+                if (arguments.getExpressionCount() != 1) {
+                    return;
+                }
                 final PsiExpression argument = arguments.getExpressions()[0];
                 if (argument instanceof PsiClassObjectAccessExpression) {
                     final PsiTypeElement operand = ((PsiClassObjectAccessExpression) argument).getOperand();
-
-                    PsiClassQualifiedNameResolver.resolveClassName(operand)
-                            .filter(COMMON_EXCEPTIONS::contains)
-                            .map(CommonExceptionAssertionInspection::getExceptionName)
-                            .ifPresent(exceptionName -> registerAssertionProblem(expression, exceptionName));
+                    final PsiClass exceptionClass = PsiUtil.resolveClassInClassTypeOnly(operand.getType());
+                    if (exceptionClass == null) {
+                        return;
+                    }
+                    final String exceptionQualifiedName = exceptionClass.getQualifiedName();
+                    if (FQ_COMMON_EXCEPTIONS.contains(exceptionQualifiedName)) {
+                        registerAssertionProblem(expression, exceptionClass.getName());
+                    }
                 }
             }
 
-            private boolean isMethodSignatureEligibleForInspection(String methodName, PsiExpressionList arguments) {
-                return ASSERT_THAT_EXCEPTION_OF_TYPE.equals(methodName) && arguments.getExpressionCount() == 1;
-            }
-
-            private void registerAssertionProblem(PsiMethodCallExpression assertion, String exceptionName) {
+            private void registerAssertionProblem(PsiMethodCallExpression assertionCall, String exceptionName) {
                 final String formattedDescription = String.format(DESCRIPTION_TEMPLATE, exceptionName);
-                holder.registerProblem(assertion, formattedDescription, quickFix);
+                holder.registerProblem(assertionCall, formattedDescription, quickFix);
             }
         };
     }
@@ -130,24 +146,28 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
          */
         public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor descriptor) {
             try {
-                PsiMethodCallExpression methodCallExpression = (PsiMethodCallExpression) descriptor.getPsiElement();
+                PsiMethodCallExpression assertionCall = (PsiMethodCallExpression) descriptor.getPsiElement();
 
-                final PsiExpressionList arguments = methodCallExpression.getArgumentList();
+                final PsiExpressionList arguments = assertionCall.getArgumentList();
                 final PsiTypeElement operand = ((PsiClassObjectAccessExpression) arguments.getExpressions()[0]).getOperand();
+                final PsiClass exceptionClass = PsiUtil.resolveClassInClassTypeOnly(operand.getType());
+                if (exceptionClass == null) {
+                    return;
+                }
+                final String exceptionQualifiedName = exceptionClass.getQualifiedName();
+                if (exceptionQualifiedName == null) {
+                    return;
+                }
+                final String commonAssertion = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
+                final String expressionText = AssertionTextExpressionBuilder
+                        .assertJAssertion(commonAssertion).noParameters()
+                        .build();
 
-                PsiClassQualifiedNameResolver.resolveClassName(operand)
-                        .map(this::createExpressionText)
-                        .map(expressionText -> PsiMethodCallExpressionFactory.createFormatted(project, expressionText))
-                        .ifPresent(methodCallExpression::replace);
+                final PsiMethodCallExpression enrichedAssertion = AssertionFactory.createFormatted(project, expressionText);
+                assertionCall.replace(enrichedAssertion);
             } catch (IncorrectOperationException e) {
                 LOG.error(e);
             }
-        }
-
-        @NotNull
-        private String createExpressionText(String qualifiedExceptionClassName) {
-            final String exceptionName = getExceptionName(qualifiedExceptionClassName);
-            return "org.assertj.core.api.Assertions.assertThat" + exceptionName + "()";
         }
 
         @NotNull
@@ -155,10 +175,5 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
             return getName();
         }
 
-    }
-
-    @NotNull
-    private static String getExceptionName(String exceptionQualifiedName) {
-        return exceptionQualifiedName.substring(exceptionQualifiedName.lastIndexOf('.') + 1);
     }
 }
