@@ -14,7 +14,7 @@ public final class AssertJUtils {
     public static final String ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT = "org.assertj.core.api.Assertions";
 
     @NotNull
-    public static String getCommonThrowsAssertion(String exceptionQualifiedName) {
+    public static String getCommonThrowsAssertion(@NotNull String exceptionQualifiedName) {
         switch (exceptionQualifiedName) {
             case FQ_IO_EXCEPTION:
                 return "assertThatIOException";

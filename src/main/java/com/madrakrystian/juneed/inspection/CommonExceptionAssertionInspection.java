@@ -16,7 +16,7 @@ import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.PsiTypeElement;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.util.IncorrectOperationException;
-import com.madrakrystian.juneed.utils.method.AssertionSignatureValidator;
+import com.madrakrystian.juneed.utils.method.AssertionSignatureVerifier;
 import com.madrakrystian.juneed.utils.methodCall.AssertionFactory;
 import com.madrakrystian.juneed.utils.AssertJUtils;
 import com.madrakrystian.juneed.utils.expression.AssertionTextExpressionBuilder;
@@ -80,9 +80,9 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
             public void visitMethodCallExpression(PsiMethodCallExpression expression) {
                 super.visitMethodCallExpression(expression);
 
-                boolean isAssertionSignatureValid = AssertionSignatureValidator.isNotNull()
-                        .and(AssertionSignatureValidator.fullyQualifiedNameEquals(OLD_ASSERTION_QUALIFIED_NAME))
-                        .and(AssertionSignatureValidator.hasParametersCount(1))
+                boolean isAssertionSignatureValid = AssertionSignatureVerifier.isNotNull()
+                        .and(AssertionSignatureVerifier.fullyQualifiedNameEquals(OLD_ASSERTION_QUALIFIED_NAME))
+                        .and(AssertionSignatureVerifier.parametersCountEquals(1))
                         .apply(expression.resolveMethod());
                 if (!isAssertionSignatureValid) {
                     return;
@@ -159,8 +159,7 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
                     return;
                 }
                 final String commonAssertion = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
-                final String expressionText = AssertionTextExpressionBuilder
-                        .assertJAssertion(commonAssertion).noParameters()
+                final String expressionText = AssertionTextExpressionBuilder.assertJAssertion(commonAssertion).noParameters()
                         .build();
 
                 final PsiMethodCallExpression enrichedAssertion = AssertionFactory.createFormatted(project, expressionText);
@@ -174,6 +173,5 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
         public String getFamilyName() {
             return getName();
         }
-
     }
 }

@@ -20,7 +20,7 @@ import com.madrakrystian.juneed.utils.methodCall.AssertionFactory;
 import com.madrakrystian.juneed.utils.AssertJUtils;
 import com.madrakrystian.juneed.utils.expression.AssertionTextExpressionBuilder;
 import com.madrakrystian.juneed.utils.expression.AssertionArgumentsValidator;
-import com.madrakrystian.juneed.utils.method.AssertionSignatureValidator;
+import com.madrakrystian.juneed.utils.method.AssertionSignatureVerifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,18 +73,18 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
         }
         final PsiLiteralExpression literal = ((PsiLiteralExpression) expressions[2]);
 
-        final String assertionTextExpression = createAssertionTextExpression(exceptionQualifiedName, exceptionClass.getName(), lambdaExpression.getText(), literal.getText());
+        final String assertionTextExpression = createAssertionTextExpression(exceptionQualifiedName, lambdaExpression.getText(), literal.getText());
         final PsiMethodCallExpression newAssertionCall = AssertionFactory.createFormatted(project, assertionTextExpression);
         methodCallExpression.replace(newAssertionCall);
     }
 
     @NotNull
-    private String createAssertionTextExpression(String exceptionQualifiedName, String exceptionName, String lambdaExpression, String message) {
+    private String createAssertionTextExpression(@NotNull String exceptionQualifiedName, @NotNull String lambdaExpression, @NotNull String message) {
         final AssertionTextExpressionBuilder assertionTextExpressionBuilder;
 
         final String assertionMethod = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
         if ("assertThatExceptionOfType".equals(assertionMethod)) {
-            assertionTextExpressionBuilder = AssertionTextExpressionBuilder.assertJAssertion(assertionMethod).parameter(exceptionName + ".class");
+            assertionTextExpressionBuilder = AssertionTextExpressionBuilder.assertJAssertion(assertionMethod).parameter(exceptionQualifiedName + ".class");
         } else {
             assertionTextExpressionBuilder = AssertionTextExpressionBuilder.assertJAssertion(assertionMethod).noParameters();
         }
@@ -96,8 +96,8 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
 
     @Override
     protected boolean isAssertionSignatureValid(@Nullable PsiMethod assertion) {
-        return AssertionSignatureValidator.isNotNull()
-                .and(AssertionSignatureValidator.fullyQualifiedNameEquals("org.junit.jupiter.api.Assertions.assertThrows"))
+        return AssertionSignatureVerifier.isNotNull()
+                .and(AssertionSignatureVerifier.fullyQualifiedNameEquals("org.junit.jupiter.api.Assertions.assertThrows"))
                 .apply(assertion);
     }
 

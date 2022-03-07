@@ -10,13 +10,13 @@ import java.util.function.Function;
 /**
  * Helper class for {@link PsiMethod} assertion validations.
  */
-public interface AssertionSignatureValidator extends Function<PsiMethod, Boolean> {
+public interface AssertionSignatureVerifier extends Function<PsiMethod, Boolean> {
 
-    static AssertionSignatureValidator isNotNull() {
+    static AssertionSignatureVerifier isNotNull() {
         return Objects::nonNull;
     }
 
-    static AssertionSignatureValidator fullyQualifiedNameEquals(@NotNull String fqName) {
+    static AssertionSignatureVerifier fullyQualifiedNameEquals(@NotNull String fqName) {
         return assertion -> {
             final PsiClass methodClass = assertion.getContainingClass();
             if (methodClass == null) {
@@ -27,15 +27,14 @@ public interface AssertionSignatureValidator extends Function<PsiMethod, Boolean
         };
     }
 
-    static AssertionSignatureValidator hasParametersCount(int count) {
+    static AssertionSignatureVerifier parametersCountEquals(int count) {
         return assertion -> assertion.getParameterList().getParametersCount() == count;
     }
 
-    default AssertionSignatureValidator and(AssertionSignatureValidator other) {
+    default AssertionSignatureVerifier and(AssertionSignatureVerifier other) {
         return assertion -> {
             Boolean result = this.apply(assertion);
             return result.equals(Boolean.TRUE) ? other.apply(assertion) : result;
         };
     }
-
 }
