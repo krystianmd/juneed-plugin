@@ -1,0 +1,4 @@
+@org.junit.jupiter.params.ParameterizedTest
+@org.junit.jupiter.params.provider.EnumSource(${ENUM}.class)
+void ${NAME}(${ENUM} source) {
+}

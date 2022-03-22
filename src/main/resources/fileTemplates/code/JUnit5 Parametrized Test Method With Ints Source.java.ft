@@ -1,0 +1,4 @@
+@org.junit.jupiter.params.ParameterizedTest
+@org.junit.jupiter.params.provider.ValueSource(ints = {${INTS}})
+void ${NAME}(int source) {
+}

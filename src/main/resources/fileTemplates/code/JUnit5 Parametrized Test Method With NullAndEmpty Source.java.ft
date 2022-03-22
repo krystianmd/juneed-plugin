@@ -1,0 +1,4 @@
+@org.junit.jupiter.params.ParameterizedTest
+@org.junit.jupiter.params.provider.NullAndEmptySource
+void ${NAME}(${PARAM_TYPE} source) {
+}

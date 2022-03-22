@@ -1,0 +1,4 @@
+@org.junit.jupiter.params.ParameterizedTest
+@org.junit.jupiter.params.provider.MethodSource("${METHOD}")
+void ${NAME}(${PARAM_TYPE} source) {
+}
