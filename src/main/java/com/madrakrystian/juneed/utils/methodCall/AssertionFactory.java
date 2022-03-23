@@ -13,9 +13,9 @@ public final class AssertionFactory {
     /**
      * Creates assertion {@link PsiMethodCallExpression} from expression text and formats it according to the the {@link Project} style.
      */
-    public static @NotNull PsiMethodCallExpression createFormatted(@NotNull Project project, @NotNull String expressionText) {
+    public static @NotNull PsiMethodCallExpression create(@NotNull Project project, @NotNull String expressionText) {
         final PsiElementFactory factory = JavaPsiFacade.getInstance(project).getElementFactory();
-        PsiMethodCallExpression assertion = (PsiMethodCallExpression) factory
+        final PsiMethodCallExpression assertion = (PsiMethodCallExpression) factory
                 .createExpressionFromText(expressionText, null);
 
         final CodeStyleManager codeStylist = CodeStyleManager.getInstance(project);

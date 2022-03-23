@@ -74,7 +74,7 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
         final PsiLiteralExpression literal = ((PsiLiteralExpression) expressions[2]);
 
         final String assertionTextExpression = createAssertionTextExpression(exceptionQualifiedName, lambdaExpression.getText(), literal.getText());
-        final PsiMethodCallExpression newAssertionCall = AssertionFactory.createFormatted(project, assertionTextExpression);
+        final PsiMethodCallExpression newAssertionCall = AssertionFactory.create(project, assertionTextExpression);
         methodCallExpression.replace(newAssertionCall);
     }
 

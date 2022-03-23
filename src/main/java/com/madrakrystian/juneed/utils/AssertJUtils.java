@@ -32,7 +32,6 @@ public final class AssertJUtils {
     }
 
     public static class ExpressionTextBuilder extends FluentAssertionExpressionTextBuilder {
-
         private ExpressionTextBuilder(@NotNull String assertion) {
             super(AssertionMethodQualifier.qualifyWith(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT).apply(assertion));
         }

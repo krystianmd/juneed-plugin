@@ -160,7 +160,7 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
                 final String expressionText = AssertJUtils.ExpressionTextBuilder.builder(commonAssertion).noParameters()
                         .build();
 
-                final PsiMethodCallExpression enrichedAssertion = AssertionFactory.createFormatted(project, expressionText);
+                final PsiMethodCallExpression enrichedAssertion = AssertionFactory.create(project, expressionText);
                 assertionCall.replace(enrichedAssertion);
             } catch (IncorrectOperationException e) {
                 LOG.error(e);
