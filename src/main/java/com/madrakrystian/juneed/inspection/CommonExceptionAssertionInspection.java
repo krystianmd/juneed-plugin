@@ -19,14 +19,12 @@ import com.intellij.util.IncorrectOperationException;
 import com.madrakrystian.juneed.utils.method.AssertionSignatureVerifier;
 import com.madrakrystian.juneed.utils.methodCall.AssertionFactory;
 import com.madrakrystian.juneed.utils.AssertJUtils;
-import com.madrakrystian.juneed.utils.expression.AssertionTextExpressionBuilder;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalInspectionTool {
-
     private static final Logger LOG = Logger.getInstance("#com.madrakrystian.juneed.inspection.ComparingReferencesInspection");
 
     /**
@@ -159,7 +157,7 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
                     return;
                 }
                 final String commonAssertion = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
-                final String expressionText = AssertionTextExpressionBuilder.assertJAssertion(commonAssertion).noParameters()
+                final String expressionText = AssertJUtils.ExpressionTextBuilder.builder(commonAssertion).noParameters()
                         .build();
 
                 final PsiMethodCallExpression enrichedAssertion = AssertionFactory.createFormatted(project, expressionText);

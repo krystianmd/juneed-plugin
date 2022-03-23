@@ -1,5 +1,6 @@
 package com.madrakrystian.juneed.utils;
 
+import com.madrakrystian.juneed.utils.expression.FluentAssertionExpressionTextBuilder;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,16 +17,27 @@ public final class AssertJUtils {
     @NotNull
     public static String getCommonThrowsAssertion(@NotNull String exceptionQualifiedName) {
         switch (exceptionQualifiedName) {
-            case FQ_IO_EXCEPTION:
-                return "assertThatIOException";
-            case FQ_NPE_EXCEPTION:
-                return "assertThatNullPointerException";
-            case FQ_ILLEGAL_STATE_EXCEPTION:
-                return "assertThatIllegalStateException";
             case FQ_ILLEGAL_ARGUMENT_EXCEPTION:
                 return "assertThatIllegalArgumentException";
+            case FQ_ILLEGAL_STATE_EXCEPTION:
+                return "assertThatIllegalStateException";
+            case FQ_NPE_EXCEPTION:
+                return "assertThatNullPointerException";
+            case FQ_IO_EXCEPTION:
+                return "assertThatIOException";
             default:
                 return "assertThatExceptionOfType";
+        }
+    }
+
+    public static class ExpressionTextBuilder extends FluentAssertionExpressionTextBuilder {
+
+        private ExpressionTextBuilder(@NotNull String assertion) {
+            super(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT + "." + assertion);
+        }
+
+        public static FluentAssertionExpressionTextBuilder builder(@NotNull String assertion) {
+            return new ExpressionTextBuilder(assertion);
         }
     }
 }

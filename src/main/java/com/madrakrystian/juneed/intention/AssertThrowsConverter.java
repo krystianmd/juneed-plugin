@@ -16,9 +16,9 @@ import com.intellij.psi.PsiTypeElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.util.IncorrectOperationException;
+import com.madrakrystian.juneed.utils.expression.FluentAssertionExpressionTextBuilder;
 import com.madrakrystian.juneed.utils.methodCall.AssertionFactory;
 import com.madrakrystian.juneed.utils.AssertJUtils;
-import com.madrakrystian.juneed.utils.expression.AssertionTextExpressionBuilder;
 import com.madrakrystian.juneed.utils.expression.AssertionArgumentsValidator;
 import com.madrakrystian.juneed.utils.method.AssertionSignatureVerifier;
 import org.jetbrains.annotations.NotNull;
@@ -80,17 +80,17 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
 
     @NotNull
     private String createAssertionTextExpression(@NotNull String exceptionQualifiedName, @NotNull String lambdaExpression, @NotNull String message) {
-        final AssertionTextExpressionBuilder assertionTextExpressionBuilder;
+        final FluentAssertionExpressionTextBuilder textExpressionBuilder;
 
         final String assertionMethod = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
         if ("assertThatExceptionOfType".equals(assertionMethod)) {
-            assertionTextExpressionBuilder = AssertionTextExpressionBuilder.assertJAssertion(assertionMethod).parameter(exceptionQualifiedName + ".class");
+            textExpressionBuilder = AssertJUtils.ExpressionTextBuilder.builder(assertionMethod).parameter(exceptionQualifiedName + ".class");
         } else {
-            assertionTextExpressionBuilder = AssertionTextExpressionBuilder.assertJAssertion(assertionMethod).noParameters();
+            textExpressionBuilder = AssertJUtils.ExpressionTextBuilder.builder(assertionMethod).noParameters();
         }
-        return assertionTextExpressionBuilder
-                .fluentMethodCall("isThrownBy").parameter("() -> " + lambdaExpression)
-                .fluentMethodCall("withMessageContaining").parameter(message)
+        return textExpressionBuilder
+                .methodCall("isThrownBy").parameter("() -> " + lambdaExpression)
+                .methodCall("withMessageContaining").parameter(message)
                 .build();
     }
 
