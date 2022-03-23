@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * Helper class for {@link PsiMethod} assertion validations.
+ * Helper interface for {@link PsiMethod} assertion validations.
  */
 public interface AssertionSignatureVerifier extends Function<PsiMethod, Boolean> {
 
@@ -22,7 +22,11 @@ public interface AssertionSignatureVerifier extends Function<PsiMethod, Boolean>
             if (methodClass == null) {
                 return false;
             }
-            final String qualifiedName = methodClass.getQualifiedName() + "." + assertion.getName();
+            final String qualifiedClassName = methodClass.getQualifiedName();
+            if (qualifiedClassName == null) {
+                return false;
+            }
+            final String qualifiedName = AssertionMethodQualifier.qualifyWith(qualifiedClassName).apply(assertion.getName());
             return fqName.equals(qualifiedName);
         };
     }

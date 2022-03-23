@@ -1,6 +1,7 @@
 package com.madrakrystian.juneed.utils;
 
 import com.madrakrystian.juneed.utils.expression.FluentAssertionExpressionTextBuilder;
+import com.madrakrystian.juneed.utils.method.AssertionMethodQualifier;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +34,7 @@ public final class AssertJUtils {
     public static class ExpressionTextBuilder extends FluentAssertionExpressionTextBuilder {
 
         private ExpressionTextBuilder(@NotNull String assertion) {
-            super(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT + "." + assertion);
+            super(AssertionMethodQualifier.qualifyWith(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT).apply(assertion));
         }
 
         public static FluentAssertionExpressionTextBuilder builder(@NotNull String assertion) {
