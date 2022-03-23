@@ -16,6 +16,9 @@ public interface AssertionSignatureVerifier extends Function<PsiMethod, Boolean>
         return Objects::nonNull;
     }
 
+    /**
+     * Checks if computed fully qualified assertion method equals given.
+     */
     static AssertionSignatureVerifier fullyQualifiedNameEquals(@NotNull String fqName) {
         return assertion -> {
             final PsiClass methodClass = assertion.getContainingClass();
@@ -31,10 +34,16 @@ public interface AssertionSignatureVerifier extends Function<PsiMethod, Boolean>
         };
     }
 
+    /**
+     * Checks if method parameters number equals given.
+     */
     static AssertionSignatureVerifier parametersCountEquals(int count) {
         return assertion -> assertion.getParameterList().getParametersCount() == count;
     }
 
+    /**
+     * Helper method for combining {@link AssertionSignatureVerifier} conditions.
+     */
     default AssertionSignatureVerifier and(AssertionSignatureVerifier other) {
         return assertion -> {
             Boolean result = this.apply(assertion);
