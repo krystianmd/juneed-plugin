@@ -1,4 +1,4 @@
-package com.madrakrystian.juneed.template;
+package com.madrakrystian.juneed.template.context;
 
 import com.intellij.codeInsight.template.JavaCodeContextType;
 import com.intellij.psi.PsiElement;

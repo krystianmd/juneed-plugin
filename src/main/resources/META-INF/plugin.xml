@@ -12,7 +12,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- CONTEXTS -->
-        <liveTemplateContext implementation="com.madrakrystian.juneed.template.JavaTestStatementContext"/>
+        <liveTemplateContext implementation="com.madrakrystian.juneed.template.context.JavaTestStatementContext"/>
 
         <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/Assertions.xml"/>
