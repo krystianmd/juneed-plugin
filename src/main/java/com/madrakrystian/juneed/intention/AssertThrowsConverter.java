@@ -84,9 +84,9 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
 
         final String assertionMethod = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
         if ("assertThatExceptionOfType".equals(assertionMethod)) {
-            textExpressionBuilder = AssertJUtils.ExpressionTextBuilder.builder(assertionMethod).parameter(exceptionQualifiedName + ".class");
+            textExpressionBuilder = AssertJUtils.expressionTextBuilder(assertionMethod).parameter(exceptionQualifiedName + ".class");
         } else {
-            textExpressionBuilder = AssertJUtils.ExpressionTextBuilder.builder(assertionMethod).noParameters();
+            textExpressionBuilder = AssertJUtils.expressionTextBuilder(assertionMethod).noParameters();
         }
         return textExpressionBuilder
                 .methodCall("isThrownBy").parameter("() -> " + lambdaExpression)

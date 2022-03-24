@@ -5,11 +5,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Helper class for building fluent assertion expression text.
  */
-public abstract class FluentAssertionExpressionTextBuilder {
+public class FluentAssertionExpressionTextBuilder {
 
     private final StringBuilder expressionBuilder;
 
-    protected FluentAssertionExpressionTextBuilder(@NotNull String fqAssertion) {
+    public FluentAssertionExpressionTextBuilder(@NotNull String fqAssertion) {
         this.expressionBuilder = new StringBuilder();
         this.expressionBuilder.append(fqAssertion);
     }

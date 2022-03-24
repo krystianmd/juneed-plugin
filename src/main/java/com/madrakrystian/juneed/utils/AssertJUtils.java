@@ -31,13 +31,8 @@ public final class AssertJUtils {
         }
     }
 
-    public static class ExpressionTextBuilder extends FluentAssertionExpressionTextBuilder {
-        private ExpressionTextBuilder(@NotNull String assertion) {
-            super(AssertionMethodQualifier.qualifyWith(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT).apply(assertion));
-        }
-
-        public static FluentAssertionExpressionTextBuilder builder(@NotNull String assertion) {
-            return new ExpressionTextBuilder(assertion);
-        }
+    public static FluentAssertionExpressionTextBuilder expressionTextBuilder(@NotNull String assertion) {
+        final String qualified = AssertionMethodQualifier.qualifyWith(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT).apply(assertion);
+        return new FluentAssertionExpressionTextBuilder(qualified);
     }
 }

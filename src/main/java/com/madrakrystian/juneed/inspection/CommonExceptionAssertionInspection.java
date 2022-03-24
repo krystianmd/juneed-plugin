@@ -157,7 +157,7 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
                     return;
                 }
                 final String commonAssertion = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
-                final String expressionText = AssertJUtils.ExpressionTextBuilder.builder(commonAssertion).noParameters()
+                final String expressionText = AssertJUtils.expressionTextBuilder(commonAssertion).noParameters()
                         .build();
 
                 final PsiMethodCallExpression enrichedAssertion = AssertionFactory.create(project, expressionText);
