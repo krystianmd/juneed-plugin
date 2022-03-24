@@ -8,8 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.siyeh.ig.psiutils.TestUtils.isInTestCode;
 
 /**
- * Provides context of java test statement.
- * Can be used in the plugin.xml file to provide liveTemplateContext implementation
+ * Provides context for assertions and fluent assertions in live templates.
  */
 public class JavaTestStatementContext extends JavaCodeContextType.Statement {
 

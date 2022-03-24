@@ -10,6 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Builder for live template text segments and properties.
+ */
 public class TemplateBuilder {
 
     private int currentIndex = 0;
@@ -33,6 +36,14 @@ public class TemplateBuilder {
         return predefinedVariable(variable, "");
     }
 
+    /**
+     * Searches for predefined variable in the template text and adds a text segment for user to fill it when found.
+     *
+     * @param variable a string representation of predefined variable
+     * @param defaultValue a default value placed in variable text segment
+     * @return builder reference
+     * @throws IllegalStateException when predefined variable is not found
+     */
     public TemplateBuilder predefinedVariable(String variable, String defaultValue) {
         int variableIndex = findVariableIndex(variable);
 
@@ -63,6 +74,11 @@ public class TemplateBuilder {
         return variable.replace("\\{|\\}", "");
     }
 
+    /**
+     * Returns formatted result of the builder steps.
+     *
+     * @return builder result
+     */
     public Template build() {
         liveTemplate.addTextSegment(templateText.substring(currentIndex));
         liveTemplate.setToIndent(true);
