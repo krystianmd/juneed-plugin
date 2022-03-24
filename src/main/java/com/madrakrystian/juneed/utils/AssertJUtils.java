@@ -10,6 +10,9 @@ import static com.madrakrystian.juneed.inspection.CommonExceptionAssertionInspec
 import static com.madrakrystian.juneed.inspection.CommonExceptionAssertionInspection.FQ_IO_EXCEPTION;
 import static com.madrakrystian.juneed.inspection.CommonExceptionAssertionInspection.FQ_NPE_EXCEPTION;
 
+/**
+ * Common methods for operations related to AssertJ test library.
+ */
 public final class AssertJUtils {
 
     @NonNls

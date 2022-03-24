@@ -17,7 +17,7 @@ public interface AssertionSignatureVerifier extends Function<PsiMethod, Boolean>
     }
 
     /**
-     * Checks if computed fully qualified assertion method equals given.
+     * Checks if computed fully qualified assertion method name equals given.
      */
     static AssertionSignatureVerifier fullyQualifiedNameEquals(@NotNull String fqName) {
         return assertion -> {
