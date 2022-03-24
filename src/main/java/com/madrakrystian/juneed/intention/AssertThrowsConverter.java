@@ -1,5 +1,6 @@
 package com.madrakrystian.juneed.intention;
 
+import com.intellij.codeInspection.util.IntentionFamilyName;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.LambdaUtil;
@@ -25,13 +26,23 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Implements an intention action to replace JUnit assertThrows() assertion with AssertJ fluent one.
+ * Implements an intention action to replace JUnit assertThrows() assertion with appropriate AssertJ one.
  * <p>
  * e.g. before applying intention
  * assertThrows(FoobarException.class, () -> fooBarService.apply(), "message");
  * <p>
  * after applying intention
  * Assertions.assertThatExceptionOfType(FoobarException.class)
+ *      .isThrownBy(() -> fooBarService.apply())
+ *      .withMessageContaining("message");
+ * <p>
+ * Includes also enriched ones.
+ * <p>
+ * e.g. before applying intention
+ * assertThrows(IllegalArgumentException.class, () -> fooBarService.apply(), "message");
+ * <p>
+ * after applying intention
+ * Assertions.assertThatIllegalException()
  *      .isThrownBy(() -> fooBarService.apply())
  *      .withMessageContaining("message");
  */
@@ -42,7 +53,7 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
     }
 
     /**
-     * Modifies the Psi to change a JUnit assertThrows() assertion to an AssertJ assertThatExceptionOfType() one.
+     * Invokes the intention.
      *
      * @param project a reference to the Project object being edited.
      * @param editor  a reference to the object editing the project source
@@ -108,5 +119,10 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
                 && AssertionArgumentsValidator.isExceptionClass(expressions[0])
                 && AssertionArgumentsValidator.isExecutableLambdaExpression(expressions[1])
                 && AssertionArgumentsValidator.isLiteralString(expressions[2]);
+    }
+
+    @Override
+    public @NotNull @IntentionFamilyName String getFamilyName() {
+        return "Convert assertThrows assertion";
     }
 }

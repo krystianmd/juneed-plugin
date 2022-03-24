@@ -21,7 +21,7 @@
         <!-- INTENTIONS -->
         <intentionAction>
             <className>com.madrakrystian.juneed.intention.AssertThrowsConverter</className>
-            <category>Assertions conversion intentions</category>
+            <category>Assertions conversions</category>
         </intentionAction>
 
         <!-- INSPECTIONS -->
