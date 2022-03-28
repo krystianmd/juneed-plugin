@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
  * assertThrows(FoobarException.class, () -> fooBarService.apply(), "message");
  * <p>
  * after applying intention
- * Assertions.assertThatExceptionOfType(FoobarException.class)
+ * assertThatExceptionOfType(FoobarException.class)
  *      .isThrownBy(() -> fooBarService.apply())
  *      .withMessageContaining("message");
  * <p>
@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
  * assertThrows(IllegalArgumentException.class, () -> fooBarService.apply(), "message");
  * <p>
  * after applying intention
- * Assertions.assertThatIllegalException()
+ * assertThatIllegalException()
  *      .isThrownBy(() -> fooBarService.apply())
  *      .withMessageContaining("message");
  */
@@ -84,20 +84,22 @@ public class AssertThrowsConverter extends AssertionConverterIntentionAction {
         }
         final PsiLiteralExpression literal = ((PsiLiteralExpression) expressions[2]);
 
-        final String assertionTextExpression = createAssertionTextExpression(exceptionQualifiedName, lambdaExpression.getText(), literal.getText());
+        final String assertionTextExpression = createAssertionTextExpression(exceptionQualifiedName, lambdaExpression.getText(), literal.getText(),
+                methodCallExpression);
         final PsiMethodCallExpression newAssertionCall = AssertionFactory.create(project, assertionTextExpression);
         methodCallExpression.replace(newAssertionCall);
     }
 
     @NotNull
-    private String createAssertionTextExpression(@NotNull String exceptionQualifiedName, @NotNull String lambdaExpression, @NotNull String message) {
+    private String createAssertionTextExpression(@NotNull String exceptionQualifiedName, @NotNull String lambdaExpression, @NotNull String message,
+                                                 @NotNull PsiMethodCallExpression originalMethodCall) {
         final FluentAssertionExpressionTextBuilder textExpressionBuilder;
 
         final String assertionMethod = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
         if ("assertThatExceptionOfType".equals(assertionMethod)) {
-            textExpressionBuilder = AssertJUtils.expressionTextBuilder(assertionMethod).parameter(exceptionQualifiedName + ".class");
+            textExpressionBuilder = AssertJUtils.expressionTextBuilder(assertionMethod, originalMethodCall).parameter(exceptionQualifiedName + ".class");
         } else {
-            textExpressionBuilder = AssertJUtils.expressionTextBuilder(assertionMethod).noParameters();
+            textExpressionBuilder = AssertJUtils.expressionTextBuilder(assertionMethod, originalMethodCall).noParameters();
         }
         return textExpressionBuilder
                 .methodCall("isThrownBy").parameter("() -> " + lambdaExpression)

@@ -1,24 +1,24 @@
 // Default
-Assertions.<spot>assertThatExceptionOfType</spot>(Exception.class)
+<spot>assertThatExceptionOfType</spot>(Exception.class)
     .isThrownBy(() -> service.apply())
     .withMessageContaining("message");
 
 // IllegalStateException
-Assertions.<spot>assertThatIllegalStateException</spot>()
+<spot>assertThatIllegalStateException</spot>()
     .isThrownBy(() -> service.apply())
     .withMessageContaining("message");
 
 // IllegalArgumentException
-Assertions.<spot>assertThatIllegalArgumentException</spot>()
+<spot>assertThatIllegalArgumentException</spot>()
     .isThrownBy(() -> service.apply())
     .withMessageContaining("message");
 
 // NullPointerException
-Assertions.<spot>assertThatNullPointerException</spot>()
+<spot>assertThatNullPointerException</spot>()
     .isThrownBy(() -> service.apply())
     .withMessageContaining("message");
 
 // IOException
-Assertions.<spot>assertThatIOException</spot>()
+<spot>assertThatIOException</spot>()
     .isThrownBy(() -> service.apply())
     .withMessageContaining("message");

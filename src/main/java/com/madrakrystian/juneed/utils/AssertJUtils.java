@@ -1,5 +1,6 @@
 package com.madrakrystian.juneed.utils;
 
+import com.intellij.psi.PsiMethodCallExpression;
 import com.madrakrystian.juneed.utils.expression.FluentAssertionExpressionTextBuilder;
 import com.madrakrystian.juneed.utils.method.AssertionMethodQualifier;
 import org.jetbrains.annotations.NonNls;
@@ -34,8 +35,9 @@ public final class AssertJUtils {
         }
     }
 
-    public static FluentAssertionExpressionTextBuilder expressionTextBuilder(@NotNull String assertion) {
-        final String qualified = AssertionMethodQualifier.qualifyWith(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT).apply(assertion);
+    public static FluentAssertionExpressionTextBuilder expressionTextBuilder(@NotNull String assertion, @NotNull PsiMethodCallExpression originalMethodCall) {
+        final String qualified = AssertionMethodQualifier.qualifyWith(ASSERTJ_ASSERTIONS_QUALIFIED_IMPORT, originalMethodCall)
+                .apply(assertion);
         return new FluentAssertionExpressionTextBuilder(qualified);
     }
 }

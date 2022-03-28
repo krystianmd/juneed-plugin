@@ -132,11 +132,11 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
          * This method manipulates the PSI tree to replace the assertion with a more verbose one.
          * <p>
          * e.g. before applying fix
-         * Assertions.assertThatExceptionOfType(NullPointerException.class)
+         * assertThatExceptionOfType(NullPointerException.class)
          * ...
          * <p>
          * after applying fix
-         * Assertions.assertThatNullPointerException()
+         * assertThatNullPointerException()
          * ...
          *
          * @param project    The project that contains the file being edited.
@@ -157,7 +157,7 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
                     return;
                 }
                 final String commonAssertion = AssertJUtils.getCommonThrowsAssertion(exceptionQualifiedName);
-                final String expressionText = AssertJUtils.expressionTextBuilder(commonAssertion).noParameters()
+                final String expressionText = AssertJUtils.expressionTextBuilder(commonAssertion, assertionCall).noParameters()
                         .build();
 
                 final PsiMethodCallExpression enrichedAssertion = AssertionFactory.create(project, expressionText);
