@@ -25,13 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalInspectionTool {
-    private static final Logger LOG = Logger.getInstance("#com.madrakrystian.juneed.inspection.ComparingReferencesInspection");
-
-    /**
-     * Identifier of the Assertions.assertThatExceptionOfType method used for asserting an exception occurrence.
-     */
-    @NonNls
-    private static final String OLD_ASSERTION_QUALIFIED_NAME = "org.assertj.core.api.Assertions.assertThatExceptionOfType";
+    private static final Logger LOG = Logger.getInstance("#com.madrakrystian.juneed.inspection.CommonExceptionAssertionInspection");
 
     @NonNls
     public static final String FQ_ILLEGAL_ARGUMENT_EXCEPTION = "java.lang.IllegalArgumentException";
@@ -42,8 +36,11 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
     @NonNls
     public static final String FQ_IO_EXCEPTION = "java.io.IOException";
 
+    @NonNls
+    private static final String OLD_ASSERTION_QUALIFIED_NAME = "org.assertj.core.api.Assertions.assertThatExceptionOfType";
+
     /**
-     * List of common exceptions that were chosen for enriched syntax of throw assertions.
+     * Common exceptions that were chosen for enriched syntax of throw assertion.
      */
     @NonNls
     private static final List<String> FQ_COMMON_EXCEPTIONS =
@@ -53,10 +50,7 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
     private final LocalQuickFix quickFix = new AssertionQuickFix();
 
     /**
-     * Inspects method call expression of the {@value #OLD_ASSERTION_QUALIFIED_NAME} assertion
-     * with one of the common exceptions as an argument.
-     *
-     * The visitor must not be recursive and must be thread-safe.
+     * Inspects method call expression of the "assertThatExceptionOfType" assertion with one of the common exceptions as an argument.
      *
      * @param holder     object for visitor to register problems found.
      * @param isOnTheFly true if inspection was run in non-batch mode
@@ -72,7 +66,7 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
              * Defines a short message shown to a user signaling the inspection found a problem.
              */
             @NonNls
-            private static final String DESCRIPTION_TEMPLATE = "Found an old syntax, use assertThat%s instead";
+            private static final String DESCRIPTION_TEMPLATE = "Assertion can be replaced with 'assertThat%s' instead";
 
             @Override
             public void visitMethodCallExpression(PsiMethodCallExpression expression) {
@@ -112,32 +106,18 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
     }
 
     /**
-     * Provides a solution to inspection problem by manipulating the PSI tree to use an appropriate latter syntax instead.
+     * Quick fix for the assertion registered problem.
      */
     private static class AssertionQuickFix implements LocalQuickFix {
-
-        /**
-         * Returns a partially localized string for the quick fix intention.
-         * Used by the test code for this plugin.
-         *
-         * @return Quick fix short name.
-         */
-        @NotNull
-        @Override
-        public String getName() {
-            return "Replace with latter enriched AssertJ syntax";
-        }
 
         /**
          * This method manipulates the PSI tree to replace the assertion with a more verbose one.
          * <p>
          * e.g. before applying fix
          * assertThatExceptionOfType(NullPointerException.class)
-         * ...
          * <p>
          * after applying fix
          * assertThatNullPointerException()
-         * ...
          *
          * @param project    The project that contains the file being edited.
          * @param descriptor A problem found by this inspection.
@@ -167,9 +147,13 @@ public class CommonExceptionAssertionInspection extends AbstractBaseJavaLocalIns
             }
         }
 
+        /**
+         * Text that appears in the "Apply Fix" popup.
+         */
         @NotNull
+        @Override
         public String getFamilyName() {
-            return getName();
+            return "Replace with enriched assertion";
         }
     }
 }

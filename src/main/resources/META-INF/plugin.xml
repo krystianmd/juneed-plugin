@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.madrakrystian.JUneed</id>
+    <id>com.madrakrystian.juneed</id>
     <name>JUneed</name>
     <vendor email="madrakrystian@gmail.com" url="https://www.madrakrystian.com">Krystian Madra</vendor>
 
@@ -26,12 +26,11 @@
 
         <!-- INSPECTIONS -->
         <localInspection language="JAVA"
-                         displayName="ExceptionOfType used instead of enriched assertion for commonly used exceptions"
-                         groupPath="Java"
-                         groupBundle="messages.InspectionsBundle"
-                         groupKey="group.names.verbose.or.redundant.code.constructs"
                          enabledByDefault="true"
-                         level="WARNING"
+                         displayName="'assertThatExceptionOfType' used instead of more verbose 'enriched' one"
+                         groupPath="Java"
+                         groupBundle="juneed.properties.inspection"
+                         groupKey="inspection.group.name"
                          implementationClass="com.madrakrystian.juneed.inspection.CommonExceptionAssertionInspection"/>
     </extensions>
 

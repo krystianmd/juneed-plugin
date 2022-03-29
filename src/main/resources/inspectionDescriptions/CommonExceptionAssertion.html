@@ -1,10 +1,14 @@
 <html>
 <body>
-Reports usages of <code>Assertions.assertThatExceptionOfType</code> with one of the common exceptions (IOException, NullPointerException, IllegalStateException, IllegalArgumentException)
-is used instead of its specific enriched method.
-<p>
-    Quick-fix replaces the method call with enriched one.
-</p>
+Reports usages of <code>assertThatExceptionOfType</code> assertion with one of the common exceptions instead of specific enriched one.
+<p>Example:</p>
+<pre><code>
+  assertThatExceptionOfType(NullPointerException.class)
+</code></pre>
+<p>A quick-fix replaces assertion with a more verbose one:</p>
+<pre><code>
+  assertThatNullPointerException()
+</code></pre>
 <!-- tooltip end -->
 </body>
 </html>
