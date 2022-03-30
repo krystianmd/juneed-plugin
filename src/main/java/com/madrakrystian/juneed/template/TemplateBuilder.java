@@ -46,6 +46,7 @@ public class TemplateBuilder {
      */
     public TemplateBuilder predefinedVariable(String variable, String defaultValue) {
         int variableIndex = findVariableIndex(variable);
+        liveTemplate.addTextSegment(templateText.substring(currentIndex, variableIndex));
 
         if (variables.contains(variable)){
             liveTemplate.addVariableSegment(removeVariableSyntax(variable));
@@ -53,10 +54,8 @@ public class TemplateBuilder {
             variables.add(variable);
 
             Expression expression = new ConstantNode(defaultValue);
-            liveTemplate.addTextSegment(templateText.substring(currentIndex, variableIndex));
             liveTemplate.addVariable(removeVariableSyntax(variable), expression, expression, true);
         }
-
         currentIndex = variableIndex + variable.length();
         return this;
     }
