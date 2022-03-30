@@ -35,23 +35,9 @@
     </extensions>
 
     <actions>
-        <group id="ParametrizedTestGenerateGroup" text="Parametrized Test Method" popup="true">
-            <add-to-group group-id="GenerateGroup" anchor="first"/>
-            <action id="GenerateParameterizedTestWithStringsSourceMethod"
-                    class="com.madrakrystian.juneed.action.GenerateParameterizedTestWithStringsSourceAction" text="Parametrized Test Method With Strings Source">
-            </action>
-            <action id="GenerateParameterizedTestWithNullAndEmptySourceMethod"
-                    class="com.madrakrystian.juneed.action.GenerateParameterizedTestWithNullAndEmptySourceAction" text="Parametrized Test Method With Null And Empty Source">
-            </action>
-            <action id="GenerateParameterizedTestWithMethodSourceMethod"
-                    class="com.madrakrystian.juneed.action.GenerateParameterizedTestWithMethodSourceAction" text="Parametrized Test Method With Method Source">
-            </action>
-            <action id="GenerateParameterizedTestWithEnumsSourceMethod"
-                    class="com.madrakrystian.juneed.action.GenerateParameterizedTestWithEnumsSourceAction" text="Parametrized Test Method With Enums Source">
-            </action>
-            <action id="GenerateParameterizedTestWithIntsSourceMethod"
-                    class="com.madrakrystian.juneed.action.GenerateParameterizedTestWithIntsSourceAction" text="Parametrized Test Method With Ints Source">
-            </action>
+        <group id="ParametrizedTestGenerateGroup" text="Parametrized Test Method With..." popup="true"
+               class="com.madrakrystian.juneed.action.ParametrizedActionGroup">
+            <add-to-group group-id="JavaGenerateGroup1" anchor="after" relative-to-action="GenerateTestMethod"/>
         </group>
     </actions>
 </idea-plugin>
