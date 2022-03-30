@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GenerateParameterizedTestWithEnumsSourceAction extends ParametrizedTestMethodAction {
     public GenerateParameterizedTestWithEnumsSourceAction() {
-        super(new EnumSourceHandler());
+        super(new EnumSourceHandler(), "Enums Source");
     }
 
     private static class EnumSourceHandler extends ParametrizedTestMethodHandler {

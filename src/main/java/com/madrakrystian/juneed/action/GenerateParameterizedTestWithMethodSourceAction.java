@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GenerateParameterizedTestWithMethodSourceAction extends ParametrizedTestMethodAction {
     public GenerateParameterizedTestWithMethodSourceAction() {
-        super(new MethodSourceHandler());
+        super(new MethodSourceHandler(), "Method Source");
     }
 
     private static class MethodSourceHandler extends ParametrizedTestMethodHandler {

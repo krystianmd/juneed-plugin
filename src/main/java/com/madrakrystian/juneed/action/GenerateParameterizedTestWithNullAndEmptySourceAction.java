@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class GenerateParameterizedTestWithNullAndEmptySourceAction extends ParametrizedTestMethodAction {
     public GenerateParameterizedTestWithNullAndEmptySourceAction() {
-        super(new NullAndEmptySourceHandler());
+        super(new NullAndEmptySourceHandler(), "Null And Empty Source");
     }
 
     private static class NullAndEmptySourceHandler extends ParametrizedTestMethodHandler {

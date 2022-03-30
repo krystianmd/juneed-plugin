@@ -10,9 +10,11 @@ import com.intellij.codeInsight.hint.HintManager;
 import com.intellij.codeInsight.template.Template;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
+import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.NlsActions;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
@@ -31,9 +33,25 @@ import java.util.Collections;
 import static com.intellij.execution.junit.JUnitUtil.isJUnit5TestClass;
 
 public abstract class ParametrizedTestMethodAction extends BaseGenerateAction {
+    private final String presentationText;
 
-    public ParametrizedTestMethodAction(ParametrizedTestMethodHandler handler) {
+    public ParametrizedTestMethodAction(ParametrizedTestMethodHandler handler, String presentationText) {
         super(handler);
+        this.presentationText = presentationText;
+    }
+
+    /**
+     * Enables view of the action in the popup elements list.
+     */
+    @Override
+    protected void update(@NotNull Presentation presentation, @NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file) {
+        presentation.setText(getTemplateText());
+        presentation.setEnabledAndVisible(isValidForFile(project, editor, file));
+    }
+
+    @Override
+    public @Nullable @NlsActions.ActionText String getTemplateText() {
+        return presentationText;
     }
 
     @Override
