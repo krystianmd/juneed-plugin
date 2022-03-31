@@ -7,9 +7,6 @@ import com.intellij.codeInsight.generation.OverrideImplementUtil;
 import com.intellij.codeInsight.generation.PsiGenerationInfo;
 import com.intellij.codeInsight.generation.actions.BaseGenerateAction;
 import com.intellij.codeInsight.hint.HintManager;
-import com.intellij.codeInsight.template.Template;
-import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
@@ -24,7 +21,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
 import com.intellij.testIntegration.TestIntegrationUtils;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,11 +28,17 @@ import java.util.Collections;
 
 import static com.intellij.execution.junit.JUnitUtil.isJUnit5TestClass;
 
-public abstract class ParametrizedTestMethodAction extends BaseGenerateAction {
+public abstract class GenerateParametrizedTestMethodAction extends BaseGenerateAction {
     private final String presentationText;
 
-    public ParametrizedTestMethodAction(ParametrizedTestMethodHandler handler, String presentationText) {
-        super(handler);
+    /**
+     * The only action constructor which should be used for appropriate action creation.
+     *
+     * @param sourceType       a type of parameterized method source along with its template metadata
+     * @param presentationText text which is shown in the generation popup
+     */
+    public GenerateParametrizedTestMethodAction(@NotNull ParameterizedSourceType sourceType, @NotNull String presentationText) {
+        super(new ParametrizedTestMethodHandler(sourceType));
         this.presentationText = presentationText;
     }
 
@@ -54,15 +56,15 @@ public abstract class ParametrizedTestMethodAction extends BaseGenerateAction {
         return presentationText;
     }
 
+    /**
+     * Checks whether this action is available in the class.
+     */
     @Override
     protected boolean isValidForClass(PsiClass targetClass) {
         return isJUnit5TestClass(targetClass, false);
     }
 
-    static abstract class ParametrizedTestMethodHandler implements CodeInsightActionHandler {
-        @NonNls
-        protected static final String NAME_VARIABLE = "${NAME}";
-
+    static class ParametrizedTestMethodHandler implements CodeInsightActionHandler {
         private final ParameterizedSourceType sourceType;
 
         protected ParametrizedTestMethodHandler(ParameterizedSourceType sourceType) {
@@ -114,16 +116,12 @@ public abstract class ParametrizedTestMethodAction extends BaseGenerateAction {
 
         private void runMethodTemplate(@NotNull Project project, @NotNull Editor editor, @NotNull PsiMethod method, @NotNull PsiClass targetClass) {
             try {
-                final FileTemplate fileTemplate = FileTemplateManager.getInstance(project).getCodeTemplate(sourceType.getFileTemplateName());
-                final Template template = buildTemplateWithTextSegments(project, fileTemplate.getText());
-                TestIntegrationUtils.runTestMethodTemplate(editor, targetClass, method, false, template);
+                TestIntegrationUtils.runTestMethodTemplate(editor, targetClass, method, false, sourceType.getFileTemplate(project));
             } catch (IncorrectOperationException | IllegalStateException e) {
                 final String message = "Couldn't generate method: " + e.getMessage();
                 HintManager.getInstance().showErrorHint(editor, message);
             }
         }
-
-        protected abstract Template buildTemplateWithTextSegments(@NotNull Project project, @NotNull String text);
 
         @Override
         public boolean startInWriteAction() {
