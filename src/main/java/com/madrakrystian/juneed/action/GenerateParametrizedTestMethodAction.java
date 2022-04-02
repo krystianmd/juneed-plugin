@@ -3,7 +3,6 @@ package com.madrakrystian.juneed.action;
 import com.intellij.codeInsight.CodeInsightActionHandler;
 import com.intellij.codeInsight.CodeInsightUtilCore;
 import com.intellij.codeInsight.generation.GenerateMembersUtil;
-import com.intellij.codeInsight.generation.OverrideImplementUtil;
 import com.intellij.codeInsight.generation.PsiGenerationInfo;
 import com.intellij.codeInsight.generation.actions.BaseGenerateAction;
 import com.intellij.codeInsight.hint.HintManager;
@@ -105,7 +104,7 @@ public abstract class GenerateParametrizedTestMethodAction extends BaseGenerateA
 
         private PsiMethod generateMethod(@NotNull Editor editor, @NotNull PsiFile file) {
             PsiMethod method = TestIntegrationUtils.createDummyMethod(file);
-            final PsiGenerationInfo<PsiMethod> info = OverrideImplementUtil.createGenerationInfo(method);
+            final PsiGenerationInfo<PsiMethod> info = new PsiGenerationInfo<>(method);
 
             int offset = editor.getCaretModel().getOffset();
             GenerateMembersUtil.insertMembersAtOffset(file, offset, Collections.singletonList(info));

@@ -16,15 +16,15 @@ import org.jetbrains.annotations.Nullable;
 public class ParametrizedActionGroup extends ActionGroup {
 
     @NonNls
-    private final static AnAction ENUM_SOURCE_ACTION = new GenerateParameterizedTestWithEnumsSourceAction("Enums Source");
-    @NonNls
     private final static AnAction INTS_SOURCE_ACTION = new GenerateParameterizedTestWithIntsSourceAction("Ints Source");
     @NonNls
-    private final static AnAction METHOD_SOURCE_ACTION = new GenerateParameterizedTestWithMethodSourceAction("Method Source");
+    private final static AnAction STRINGS_SOURCE_ACTION = new GenerateParameterizedTestWithStringsSourceAction("Strings Source");
     @NonNls
     private final static AnAction NULL_AND_EMPTY_SOURCE_ACTION = new GenerateParameterizedTestWithNullAndEmptySourceAction("Null And Empty Source");
     @NonNls
-    private final static AnAction STRINGS_SOURCE_ACTION = new GenerateParameterizedTestWithStringsSourceAction("Strings Source");
+    private final static AnAction ENUM_SOURCE_ACTION = new GenerateParameterizedTestWithEnumsSourceAction("Enums Source");
+    @NonNls
+    private final static AnAction METHOD_SOURCE_ACTION = new GenerateParameterizedTestWithMethodSourceAction("Method Source");
 
     @NonNls
     private final static AnAction[] ACTIONS = {INTS_SOURCE_ACTION, STRINGS_SOURCE_ACTION, NULL_AND_EMPTY_SOURCE_ACTION,
