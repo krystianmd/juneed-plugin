@@ -1,12 +1,21 @@
 <idea-plugin>
     <id>com.madrakrystian.juneed</id>
-    <name>JUneed</name>
-    <vendor email="madrakrystian@gmail.com" url="https://www.madrakrystian.com">Krystian Madra</vendor>
+    <name>JUNeed</name>
+    <vendor email="madrakrystian@gmail.com">Krystian Madra</vendor>
 
-    <description><![CDATA[
-        Soon
-        ]]>
+    <description>
+        <![CDATA[
+          The plugin helps you with generating daily used code from the most popular Java test libraries like JUnit or AssertJ.<br>
+
+          <ul>
+            <li>Abbreviations for most common used assertions and fluent assertions.</li>
+            <li>Converting assertions between libraries.</li>
+            <li>Searching for common test code mistakes.</li>
+            <li>Generating parametrized test methods templates.</li>
+          </ul>
+    ]]>
     </description>
+<!--    <change-notes></change-notes>-->
 
     <depends>com.intellij.java</depends>
 
