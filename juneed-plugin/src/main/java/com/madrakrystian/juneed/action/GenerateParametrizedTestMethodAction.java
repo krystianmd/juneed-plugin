@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 
-import static com.intellij.execution.junit.JUnitUtil.isJUnit5TestClass;
+import static com.siyeh.ig.psiutils.TestUtils.isInTestSourceContent;
 
 public abstract class GenerateParametrizedTestMethodAction extends BaseGenerateAction {
     private final String presentationText;
@@ -60,7 +60,7 @@ public abstract class GenerateParametrizedTestMethodAction extends BaseGenerateA
      */
     @Override
     protected boolean isValidForClass(PsiClass targetClass) {
-        return isJUnit5TestClass(targetClass, false);
+        return isInTestSourceContent(targetClass);
     }
 
     static class ParametrizedTestMethodHandler implements CodeInsightActionHandler {
