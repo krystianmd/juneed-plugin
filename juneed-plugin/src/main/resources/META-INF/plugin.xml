@@ -9,7 +9,6 @@
 
           <ul>
             <li>Abbreviations for most common used assertions and fluent assertions.</li>
-            <li>Converting assertions between libraries.</li>
             <li>Searching for common test code mistakes.</li>
             <li>Generating parametrized test methods templates.</li>
           </ul>
@@ -26,12 +25,6 @@
         <!-- LIVE TEMPLATES -->
         <defaultLiveTemplates file="/liveTemplates/Assertions.xml"/>
         <defaultLiveTemplates file="/liveTemplates/FluentAssertions.xml"/>
-
-        <!-- INTENTIONS -->
-        <intentionAction>
-            <className>com.madrakrystian.juneed.intention.AssertThrowsConverter</className>
-            <category>Assertions conversions</category>
-        </intentionAction>
 
         <!-- INSPECTIONS -->
         <localInspection language="JAVA"
