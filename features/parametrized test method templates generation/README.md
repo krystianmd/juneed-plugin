@@ -1,7 +1,7 @@
 # Parametrized test method templates generation
 
 ## Introduction
-Parametrized tests are great to reduce your tests logic duplication when the only difference is the input parameter, however they require a few things each time you're creating one. Now generate them simply via generation popup.
+Generate parametrized tests via generation popup.
 
 ## Shortcut
 Alt + Enter + Arrows
