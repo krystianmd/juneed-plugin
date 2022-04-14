@@ -19,7 +19,7 @@ A full list of docummented features can be found in the 'features' directory.
 ## Launch
 ```
 1. Download /plugin-jar/juneed-plugin-1.0-SNAPSHOT.jar
-2. Go to the IDE settings (ctrl + alt +s) > Plugins > Install Plugin from Disk... > Pick previously downloaded jar > Apply and restart IntelliJ
+2. Go to the IDE settings (ctrl + alt + s) > Plugins > Install Plugin from Disk... > Pick previously downloaded jar > Apply and restart IntelliJ
 ```
 
 ## Status
