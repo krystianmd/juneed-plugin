@@ -1,7 +1,7 @@
 # Parametrized test method templates generation
 
 ## Introduction
-Parametrized tests are great to reduce your tests logic duplication when the only difference is the input parameter, however they require a few things each time you're creating one. Now generate them simply via generation popup. Want to know more about parametrized tests? Go to the [JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests)
+Generate parametrized tests via generation popup.
 
 ## Shortcut
 Alt + Enter + Arrows
@@ -15,6 +15,9 @@ Alt + Enter + Arrows
 * Null And Empty
 * Enum
 * Method
+
+## External links
+[JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests)
 
 ## Category
 _Action_
