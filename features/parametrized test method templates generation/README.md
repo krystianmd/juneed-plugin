@@ -17,7 +17,7 @@ Alt + Enter + Arrows
 * Method
 
 ## External links
-[JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests)
+[JUnit 5 Parametrized Tests](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests)
 
 ## Category
 _Action_
