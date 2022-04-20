@@ -1,9 +1,6 @@
 package com.madrakrystian.juneed.action;
 
 import com.intellij.codeInsight.CodeInsightActionHandler;
-import com.intellij.codeInsight.CodeInsightUtilCore;
-import com.intellij.codeInsight.generation.GenerateMembersUtil;
-import com.intellij.codeInsight.generation.PsiGenerationInfo;
 import com.intellij.codeInsight.generation.actions.BaseGenerateAction;
 import com.intellij.codeInsight.hint.HintManager;
 import com.intellij.openapi.actionSystem.Presentation;
@@ -20,10 +17,9 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
 import com.intellij.testIntegration.TestIntegrationUtils;
 import com.intellij.util.IncorrectOperationException;
+import com.madrakrystian.juneed.utils.method.MethodFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Collections;
 
 import static com.siyeh.ig.psiutils.TestUtils.isInTestSourceContent;
 
@@ -75,13 +71,15 @@ public abstract class GenerateParametrizedTestMethodAction extends BaseGenerateA
             if (!CommonRefactoringUtil.checkReadOnlyStatus(file)) {
                 return;
             }
-            final PsiClass targetClass = findTargetClass(editor, file);
+
+            int offset = editor.getCaretModel().getOffset();
+            final PsiClass targetClass = findTargetClass(file, offset);
             if (targetClass == null) {
                 return;
             }
             WriteCommandAction.runWriteCommandAction(project, () -> {
                 PsiDocumentManager.getInstance(project).commitAllDocuments();
-                PsiMethod method = generateMethod(editor, file);
+                PsiMethod method = MethodFactory.createMethod("testMethod", file, offset);
                 if (method != null) {
                     runMethodTemplate(project, editor, method, targetClass);
                 }
@@ -89,8 +87,7 @@ public abstract class GenerateParametrizedTestMethodAction extends BaseGenerateA
         }
 
         @Nullable
-        private PsiClass findTargetClass(@NotNull Editor editor, @NotNull PsiFile file) {
-            int offset = editor.getCaretModel().getOffset();
+        private PsiClass findTargetClass(@NotNull PsiFile file, int offset) {
             PsiElement element = file.findElementAt(offset);
             if (element == null) {
                 return null;
@@ -100,17 +97,6 @@ public abstract class GenerateParametrizedTestMethodAction extends BaseGenerateA
                 return null;
             }
             return containingClass;
-        }
-
-        private PsiMethod generateMethod(@NotNull Editor editor, @NotNull PsiFile file) {
-            PsiMethod method = TestIntegrationUtils.createDummyMethod(file);
-            final PsiGenerationInfo<PsiMethod> info = new PsiGenerationInfo<>(method);
-
-            int offset = editor.getCaretModel().getOffset();
-            GenerateMembersUtil.insertMembersAtOffset(file, offset, Collections.singletonList(info));
-
-            final PsiMethod member = info.getPsiMember();
-            return member != null ? CodeInsightUtilCore.forcePsiPostprocessAndRestoreElement(member) : null;
         }
 
         private void runMethodTemplate(@NotNull Project project, @NotNull Editor editor, @NotNull PsiMethod method, @NotNull PsiClass targetClass) {
