@@ -9,8 +9,8 @@
 * [Contact](#contact)
 
 ## Introduction
-Intellij plugin that helps you with writing/generating some boilerplate unit tests. 
-A full list of docummented features can be found in the 'features' directory.
+Intellij plugin that helps you with writing/generating boilerplate test code. 
+A full list of documented features can be found in the [here](https://github.com/krystianmd/juneed-plugin/tree/main/features).
 
 ## Technologies
 * Java 11
@@ -18,7 +18,7 @@ A full list of docummented features can be found in the 'features' directory.
 
 ## Launch
 ```
-1. Download /plugin-jar/juneed-plugin-1.0-SNAPSHOT.jar
+1. Download /juneed-plugin-jar/juneed-plugin-1.0-SNAPSHOT.jar
 2. Go to the IDE settings (ctrl + alt + s) > Plugins > Install Plugin from Disk... > Pick previously downloaded jar > Apply and restart IntelliJ
 ```
 
